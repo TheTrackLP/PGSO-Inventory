@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ServiceablesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/admin/settings/PPE-Accounts', 'PPEAccount')->name('ppe_acct');
         Route::get('/admin/settings/Unit Types', 'UnitTypes')->name('unit_type');
         Route::get('/admin/settings/Classification', 'Classification')->name('class');
+    });
+
+    Route::controller(ServiceablesController::class)->group(function(){
+        Route::get('/admin/serviceables/RPCPPE', 'RPCPPEService')->name('serv.rpcppe');
+        Route::get('/admin/serviceables/ICS', 'ICSService')->name('serv.ics');
     });
 });
 

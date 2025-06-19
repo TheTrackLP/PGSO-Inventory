@@ -43,8 +43,9 @@ img {
                 <div class="collapse" id="collapseService" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-list"></i>&nbsp;RPCPPE</a>
-                        <a class="nav-link" href="#"><i class="fa-solid fa-list"></i>&nbsp;ICS</a>
+                        <a class="nav-link" href="{{ route('serv.rpcppe') }}"><i
+                                class="fa-solid fa-list"></i>&nbsp;RPCPPE</a>
+                        <a class="nav-link" href="{{ route('serv.ics') }}"><i class="fa-solid fa-list"></i>&nbsp;ICS</a>
                     </nav>
                 </div>
                 <hr>
