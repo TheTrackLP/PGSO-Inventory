@@ -17,16 +17,33 @@ Route::middleware('auth')->group(function(){
         Route::get('admin/logout', 'AdminLogout')->name('admin.logout');
     });
 
-    Route::controller(SettingsController::class)->group(function() {
-        Route::get('/admin/settings/establishments', 'Establishment')->name('estab');
-        Route::get('/admin/settings/PPE-Accounts', 'PPEAccount')->name('ppe_acct');
-        Route::get('/admin/settings/Unit Types', 'UnitTypes')->name('unit_type');
-        Route::get('/admin/settings/Classification', 'Classification')->name('class');
-    });
-
     Route::controller(ServiceablesController::class)->group(function(){
+        Route::get('/admin/serviceables/Add','AddServiceables')->name('serv.add');
+        Route::post('/admin/serviceables/store','StoreServiceables')->name('serv.update');
+
         Route::get('/admin/serviceables/RPCPPE', 'RPCPPEService')->name('serv.rpcppe');
         Route::get('/admin/serviceables/ICS', 'ICSService')->name('serv.ics');
+    });
+
+    Route::controller(SettingsController::class)->group(function() {
+        Route::get('/admin/settings/establishments', 'Establishment')->name('estab');
+        Route::post('/admin/settings/establishments/add','AddEstablishment')->name('estab.add');
+        Route::get('/admin/settings/establishments/edit/{id}','EditEstablishment');
+        Route::post('/admin/settings/establishments/update','UpdateEstablishment')->name('estab.update');
+        Route::get('/admin/settings/establishments/delete/{id}','DeleteEstablishment')->name('estab.delete');
+        
+        Route::get('/admin/settings/PPE-Accounts', 'PPEAccount')->name('ppe_acct');
+        Route::post('/admin/settings/PPE-Accounts/Add', 'AddPPEAccount')->name('ppe.add');
+        Route::get('/admin/settings/PPE-Accounts/edit/{id}', 'EditPPEAccount');
+        Route::post('/admin/settings/PPE-Accounts/update', 'UpdatePPEAccount')->name('ppe.update');
+        Route::get('/admin/settings/PPE-Accounts/delete/{id}','DeletePPEAccount')->name('ppe.delete');
+
+
+        Route::get('/admin/settings/Unit Types', 'UnitTypes')->name('unit_type');
+        Route::post('/admin/settings/Unit Types/Add', 'AddUnitType')->name('unit.add');
+        Route::get('/admin/settings/Unit Types/edit/{id}', 'EditUnitType');
+        Route::post('/admin/settings/Unit Types/update', 'UpdateUnitType')->name('unit.update');
+        Route::get('/admin/settings/Unit Types/delete/{id}', 'DeleteUnitType')->name('unit.delete');
     });
 });
 

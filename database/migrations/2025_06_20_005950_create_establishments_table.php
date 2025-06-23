@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('establisments', function (Blueprint $table) {
+        Schema::create('establishments', function (Blueprint $table) {
             $table->id();
             $table->string('estab_acronym')->nullable();
-            $table->integer('estab_code')->nullable();
+            $table->string('estab_code')->nullable();
             $table->string('estab_name')->nullable();
             $table->string('estab_incharge')->nullable();
             $table->string('estab_position')->nullable();
+            $table->integer('estab_sequence')->nullable();
             $table->integer('estab_type')->nullable();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('establisments');
+        Schema::dropIfExists('establishments');
     }
 };

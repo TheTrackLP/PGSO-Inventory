@@ -66,7 +66,7 @@ img {
                                 class="fa-solid fa-boxes-stacked"></i>&nbsp;Unit Types</a>
                         <a class="nav-link" href="#"><i class="fa-solid fa-users"></i>&nbsp;User
                             Management</a>
-                        <a class="nav-link" href="{{ route('class') }}"><i class="fa-solid fa-bars"></i>&nbsp;Class
+                        <a class="nav-link" href="#"><i class="fa-solid fa-bars"></i>&nbsp;Class
                             Reports</a>
                     </nav>
                 </div>
