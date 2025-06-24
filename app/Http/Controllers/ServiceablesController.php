@@ -157,23 +157,38 @@ class ServiceablesController extends Controller
         return view("backend.items.serv_rpcppe", compact("serv_rpcppe"));
     }
 
-    public function ServiceableManage($id)
-    {
-        $itemData = Serviceables::findOrFail($id);
-        return view("backend.items.serv_manage", compact("itemData"));
-    }
-
+    
     public function ICSService()
     {
         
         $serv_ics = Serviceables::select(
             DB::raw("CONCAT(establishments.estab_acronym) as estab"),
-                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
+            DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
             )
-                                ->join('establishments','establishments.id','=','serviceables.serv_estab')
-                                ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
-                                ->orderBy('serv_pgso','asc')
-                                ->where('serv_type' ,2)->get();
-        return view("backend.items.serv_ics", compact("serv_ics"));
-    }
+            ->join('establishments','establishments.id','=','serviceables.serv_estab')
+            ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+            ->orderBy('serv_pgso','asc')
+            ->where('serv_type' ,2)->get();
+            return view("backend.items.serv_ics", compact("serv_ics"));
+        }
+
+    public function ServiceableManage($id)
+        {
+            $itemData = Serviceables::findOrFail($id)
+                                    ->select(
+                                        "serviceables.*",
+                                        DB::raw("CONCAT(establishments.estab_name) as estab"),
+                                        DB::raw("CONCAT(ppe_accounts.ppe_code, ' | ', ppe_accounts.ppe_name) as ppe"),
+                                        DB::raw("CONCAT(unit_types.unit_name) as unit"),
+                                    )
+                                    ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                                    ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                                    ->join('unit_types','unit_types.id','=','serviceables.serv_unit')
+                                    ->first();
+
+            $estabs = Establishment::all();
+            $ppes = ppe_account::all();
+            
+            return view("backend.items.serv_manage", compact("itemData", "estabs", "ppes"));
+        }
 }
