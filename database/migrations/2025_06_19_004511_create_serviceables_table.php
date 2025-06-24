@@ -21,10 +21,10 @@ return new class extends Migration
             $table->tinyInteger('serv_unit')->nullable();
             $table->integer('serv_qty')->nullable();
             $table->float('serv_value')->nullable();
-            $table->string('remarks')->nullable();
+            $table->string('serv_remarks')->nullable();
             $table->integer('serv_estab')->nullable();
             $table->integer('serv_ppe')->nullable();
-            $table->tinyInteger('serv_class')->nullable();
+            $table->tinyInteger('serv_type')->nullable();
             $table->timestamps();
         });
     }

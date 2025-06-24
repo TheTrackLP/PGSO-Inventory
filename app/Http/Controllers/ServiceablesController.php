@@ -7,6 +7,8 @@ use App\Models\ppe_account;
 use App\Models\Establishment;
 use App\Models\unit_type;
 use App\Models\pgso_numbers;
+use App\Models\Serviceables;
+use DB;
 use Validator;
 
 class ServiceablesController extends Controller
@@ -44,7 +46,7 @@ class ServiceablesController extends Controller
             $inc_one = pgso_numbers::where([
                 ['estab_id','=', $value['serv_estab']],
                 ['ppe_id','=', $value['serv_ppe']],
-                ['serv_class','=', $value['serv_type']],
+                ['serv_type','=', $value['serv_type']],
             ])->max('inc_pgso') + $key;
 
             if($value['serv_type'] == 1){
@@ -92,8 +94,9 @@ class ServiceablesController extends Controller
                     "serv_ppe"=> $value["serv_ppe"],
                     "serv_type"=> $value["serv_type"],
                 ];
-
-                dump($data);
+                
+                Serviceables::create($data);
+                // dump(vars: $data);
             }
 
             $items = $request->input('inputs');
@@ -104,24 +107,24 @@ class ServiceablesController extends Controller
                 $check = pgso_numbers::where([
                     ['estab_id','=', $newInput['serv_estab']],
                     ['ppe_id','=', $newInput['serv_ppe']],
-                    ['serv_class','=', $newInput['serv_type']],
+                    ['serv_type','=', $newInput['serv_type']],
                 ])->first();
 
                 if(is_null($check)){
                     pgso_numbers::create([
                         'estab_id'=> $newInput['serv_estab'],
                         'ppe_id'=> $newInput['serv_ppe'],
-                        'serv_class'=> $newInput['serv_type'],
-                        'ince_pgso'=> $inc_one,
+                        'serv_type'=> $newInput['serv_type'],
+                        'inc_pgso'=> $inc_one,
                     ]);
                 } else {
                     pgso_numbers::where([
-                        'serv_estab'=> $newInput['serv_estab'],
+                        'estab_id'=> $newInput['serv_estab'],
                         'ppe_id'=> $newInput['serv_ppe'],
-                        'serv_class'=> $newInput['serv_type'],
+                        'serv_type'=> $newInput['serv_type'],
                     ])->update([
-                        'ince_pgso'=> $inc_one,
-                        'updated_date'=> $curr_date,
+                        'inc_pgso'=> $inc_one,
+                        'updated_at'=> $curr_date,
                     ]);
                 }
 
@@ -141,11 +144,36 @@ class ServiceablesController extends Controller
 
     public function RPCPPEService()
     {
-        return view("backend.items.serv_rpcppe");
+        $serv_rpcppe = Serviceables::select(
+                     "serviceables.*",
+            DB::raw("CONCAT(establishments.estab_acronym) as estab"),
+                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
+            )
+                                ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                                ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                                ->orderBy('serv_pgso','asc')
+                                ->where('serv_type' ,1)->get();
+
+        return view("backend.items.serv_rpcppe", compact("serv_rpcppe"));
+    }
+
+    public function ServiceableManage($id)
+    {
+        $itemData = Serviceables::findOrFail($id);
+        return view("backend.items.serv_manage", compact("itemData"));
     }
 
     public function ICSService()
     {
-        return view("backend.items.serv_ics");
+        
+        $serv_ics = Serviceables::select(
+            DB::raw("CONCAT(establishments.estab_acronym) as estab"),
+                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
+            )
+                                ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                                ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                                ->orderBy('serv_pgso','asc')
+                                ->where('serv_type' ,2)->get();
+        return view("backend.items.serv_ics", compact("serv_ics"));
     }
 }

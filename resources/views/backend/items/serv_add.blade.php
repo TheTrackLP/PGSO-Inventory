@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <h1 class="mt-4">Add Serviceable(s)</h1>
     <hr>
-    <form action="{{ route('serv.update') }}" method="POST">
+    <form action="{{ route('serv.store') }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-header">
@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-3">
                         <label for="">Establishment</label>
-                        <select name="inputs[1][serv_estab]" id="" class="selectOpt">
+                        <select name="inputs[1][serv_estab]" id="serv_estab" class="selectOpt">
                             <option value=""></option>
                             @foreach($estabs as $estab)
                             <option value="{{ $estab->id }}">{{ $estab->estab_acronym }} | {{ $estab->estab_name }}
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-3">
                         <label for="">PPE Account</label>
-                        <select name="inputs[1][serv_ppe]" id="" class="selectOpt">
+                        <select name="inputs[1][serv_ppe]" id="serv_ppe" class="selectOpt">
                             <option value=""></option>
                             @foreach($ppes as $ppe)
                             <option value="{{ $ppe->id }}">{{ $ppe->ppe_code }} | {{ $ppe->ppe_name }}</option>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-3">
                         <label for="">RPCPPE/ICS</label>
-                        <select name="inputs[1][serv_type]" id="" class="selectOpt">
+                        <select name="inputs[1][serv_type]" id="serv_type" class="selectOpt">
                             <option value=""></option>
                             <option value="1">RPCPPE</option>
                             <option value="2">ICS</option>
@@ -148,6 +148,9 @@
 $(document).ready(function() {
     var i = 1;
     $('#addForm').click(function() {
+        var selectedEstab = $('#serv_estab').val();
+        var selectedPPE = $('#serv_ppe').val();
+        var selectedType = $('#serv_type').val();
         ++i;
         $('#accordionExample').append(`
             <div class="accordion-item">
@@ -214,8 +217,12 @@ $(document).ready(function() {
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Unit Type:</label>
-                                                <input type="text" name="inputs[${i}][serv_unit]" id="serv_unit"
-                                                    class="form-control">
+                                                    <select name="inputs[${i}][serv_unit]" id="serv_unit" class="form-control">
+                                                    <option value="" disabled selected>Select option</option>
+                                                    @foreach($units as $unit)
+                                                    <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>
@@ -227,6 +234,9 @@ $(document).ready(function() {
                                                 <input type="number" name="inputs[${i}][serv_value]" id="serv_value"
                                                     class="form-control">
                                             </div>
+                                            <input type="text" name="inputs[${i}][serv_estab]" value="${selectedEstab}">
+                                            <input type="text" name="inputs[${i}][serv_ppe]" value="${selectedPPE}">
+                                            <input type="text" name="inputs[${i}][serv_type]" value="${selectedType}">
                                         </div>
                                     </div>
                                 </div>

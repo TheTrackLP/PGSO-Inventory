@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('estab_id');
             $table->integer('ppe_id');
-            $table->integer('serv_class');
+            $table->integer('serv_type');
             $table->integer('inc_pgso');
             $table->timestamps();
         });

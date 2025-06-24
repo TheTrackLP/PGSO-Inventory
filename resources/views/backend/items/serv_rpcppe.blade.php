@@ -51,12 +51,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($serv_rpcppe as $rpcppe)
                     <tr>
-                        <td>Description</td>
-                        <td>Old</td>
-                        <td>PGSO</td>
-                        <td>Establishment</td>
-                        <td>Total</td>
+                        <td>
+                            {{ explode("\n", $rpcppe->serv_desc)[0] }}
+                        </td>
+                        <td class="text-center">
+                            {{ $rpcppe->serv_acctg }}
+                        </td>
+                        <td class="text-center">
+                            {{ $rpcppe->serv_pgso }}
+                        </td>
+                        <td>
+                            <p>Establishment: <b>{{ $rpcppe->estab }}</b></p>
+                            <p>PPE Account: <b>{{ $rpcppe->ppe }}</b></p>
+                        </td>
+                        <td class="text-center">
+                            {{ number_format($rpcppe->serv_value, 2) }}
+                        </td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
@@ -66,7 +78,8 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye"></i>
                                             View</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i>
+                                    <li><a class="dropdown-item" href="{{ route('serv.edit', $rpcppe->id) }}"><i
+                                                class="fa-solid fa-pen-to-square"></i>
                                             Edit</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash-can"></i>
                                             Delete</a></li>
@@ -74,6 +87,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

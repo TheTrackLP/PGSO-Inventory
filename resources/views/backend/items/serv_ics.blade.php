@@ -51,6 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($serv_ics as $ics)
                     <tr>
                         <td>Description</td>
                         <td>Old</td>
@@ -74,6 +75,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
