@@ -77,7 +77,7 @@ class ServiceablesController extends Controller
                 if($value['serv_type'] == 1){
                     $pgso_inc = $estab->estab_code. '-'.$ppe->ppe_code.'-'.$item_date.'-'.str_pad($inc_one, 4, "0", STR_PAD_LEFT);
                 } else if ($value['serv_type'] == 2){
-                    $pgso_inc = $estab->estab_code. '-'.$ppe->ppe_code.'-'.$item_date.'-'.str_pad($inc_one, 2, "0", STR_PAD_LEFT);
+                    $pgso_inc = $estab->estab_acronym. '-'.$ppe->ppe_code.'-'.$item_date.'-'.str_pad($inc_one, 2, "0", STR_PAD_LEFT);
                 }
             }
 
@@ -163,13 +163,15 @@ class ServiceablesController extends Controller
     {
         
         $serv_ics = Serviceables::select(
+                     "serviceables.*",
             DB::raw("CONCAT(establishments.estab_acronym) as estab"),
-            DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
+                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
             )
-            ->join('establishments','establishments.id','=','serviceables.serv_estab')
-            ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
-            ->orderBy('serv_pgso','asc')
-            ->where('serv_type' ,2)->get();
+                                ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                                ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                                ->orderBy('serv_pgso','asc')
+                                ->where('serv_type', 2)->get();
+
             return view("backend.items.serv_ics", compact("serv_ics"));
         }
 

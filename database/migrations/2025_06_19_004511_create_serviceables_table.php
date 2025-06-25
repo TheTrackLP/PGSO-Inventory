@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('serviceables', function (Blueprint $table) {
             $table->id();
-            $table->string('serv_desc')->nullable();
+            $table->longText('serv_desc')->nullable();
             $table->string('serv_prop')->nullable();
             $table->string('serv_acctg')->nullable();
             $table->string('serv_pgso')->nullable();

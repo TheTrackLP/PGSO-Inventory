@@ -130,8 +130,8 @@
                                             </div>
                                             <div class="col">
                                                 <label for="">Unit Value</label>
-                                                <input type="number" name="inputs[1][serv_value]" id="serv_value"
-                                                    class="form-control">
+                                                <input type="number" name="inputs[1][serv_value]" step="any"
+                                                    id="serv_value" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -231,12 +231,12 @@ $(document).ready(function() {
                                             </div>
                                             <div class="col">
                                                 <label for="">Unit Value</label>
-                                                <input type="number" name="inputs[${i}][serv_value]" id="serv_value"
+                                                <input type="number" name="inputs[${i}][serv_value]" step="any" id="serv_value"
                                                     class="form-control">
                                             </div>
-                                            <input type="text" name="inputs[${i}][serv_estab]" value="${selectedEstab}">
-                                            <input type="text" name="inputs[${i}][serv_ppe]" value="${selectedPPE}">
-                                            <input type="text" name="inputs[${i}][serv_type]" value="${selectedType}">
+                                            <input type="hidden" name="inputs[${i}][serv_estab]" value="${selectedEstab}">
+                                            <input type="hidden" name="inputs[${i}][serv_ppe]" value="${selectedPPE}">
+                                            <input type="hidden" name="inputs[${i}][serv_type]" value="${selectedType}">
                                         </div>
                                     </div>
                                 </div>

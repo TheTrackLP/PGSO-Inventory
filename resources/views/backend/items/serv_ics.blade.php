@@ -53,25 +53,25 @@
                 <tbody>
                     @foreach($serv_ics as $ics)
                     <tr>
-                        <td>Description</td>
-                        <td>Old</td>
-                        <td>PGSO</td>
-                        <td>Establishment</td>
-                        <td>Total</td>
+                        <td>
+                            {{ explode("\n", $ics->serv_desc)[0] }}
+                        </td>
+                        <td class="text-center">
+                            {{ $ics->serv_acctg }}
+                        </td>
+                        <td class="text-center">
+                            {{ $ics->serv_pgso }}
+                        </td>
+                        <td>
+                            <p>Establishment: <b>{{ $ics->estab }}</b></p>
+                            <p>PPE Account: <b>{{ $ics->ppe }}</b></p>
+                        </td>
+                        <td class="text-center">
+                            {{ number_format($ics->serv_value, 2) }}
+                        </td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Action
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye"></i>
-                                            View</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square"></i>
-                                            Edit</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash-can"></i>
-                                            Delete</a></li>
-                                </ul>
+                                <a href="{{ route('serv.edit', $ics->id) }}" class="btn btn-secondary">View/Edit</a>
                             </div>
                         </td>
                     </tr>

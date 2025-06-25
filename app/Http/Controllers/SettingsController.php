@@ -20,7 +20,6 @@ class SettingsController extends Controller
     {
         $valid = Validator::make($request->all(), [
             "estab_acronym"=>"required",
-            "estab_code"=>"required",
             "estab_name"=>"required",
             "estab_incharge"=>"required",
             "estab_position"=>"required",
@@ -114,7 +113,6 @@ class SettingsController extends Controller
     {
         $valid = Validator::make($request->all(), [
             "ppe_code"=> "required",
-            "ppe_life"=> "required",
             "ppe_name"=> "required",
         ]);
 

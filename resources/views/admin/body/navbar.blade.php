@@ -14,8 +14,9 @@
             <!-- Navbar-->
             <div class="navbar-nav d-grid gap-2 d-md-flex justify-content-md-end mx-3">
                 <a href="{{ route('serv.add') }}" class="btn btn-primary px-5">Add Serviceables</a>
-                <button type="button" class="btn btn-success px-5" data-bs-target="#selectPrint"
+                <button type="button" class="btn btn-success px-5" data-bs-target="#printSelect"
                     data-bs-toggle="modal">Print
                     <i class="fa-solid fa-print"></i></button>
             </div>
         </nav>
+        @include('backend.print.print_select')
