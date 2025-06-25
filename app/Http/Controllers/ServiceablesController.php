@@ -9,6 +9,7 @@ use App\Models\unit_type;
 use App\Models\pgso_numbers;
 use App\Models\Serviceables;
 use DB;
+use Dotenv\Validator as DotenvValidator;
 use Validator;
 
 class ServiceablesController extends Controller
@@ -173,9 +174,8 @@ class ServiceablesController extends Controller
         }
 
     public function ServiceableManage($id)
-        {
-            $itemData = Serviceables::findOrFail($id)
-                                    ->select(
+    {
+            $itemData = Serviceables::select(
                                         "serviceables.*",
                                         DB::raw("CONCAT(establishments.estab_name) as estab"),
                                         DB::raw("CONCAT(ppe_accounts.ppe_code, ' | ', ppe_accounts.ppe_name) as ppe"),
@@ -184,11 +184,63 @@ class ServiceablesController extends Controller
                                     ->join('establishments','establishments.id','=','serviceables.serv_estab')
                                     ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
                                     ->join('unit_types','unit_types.id','=','serviceables.serv_unit')
+                                    ->where("serviceables.id", $id)
                                     ->first();
 
             $estabs = Establishment::all();
             $ppes = ppe_account::all();
+            $units = unit_type::all();
             
-            return view("backend.items.serv_manage", compact("itemData", "estabs", "ppes"));
+            return view("backend.items.serv_manage", compact("itemData", "estabs", "ppes", "units"));
+    }
+
+    public function ServiceableUpdate(Request $request){
+        $serv_id = $request->id;
+        $page = '';
+
+        if($request->serv_type == 1){
+            $page = 'serv.rpcppe';
+        } else if($request->serv_type == 2){
+            $page = 'serv.ics';
+        } else if($request->serv_type == 3){
+            $page = '';
         }
+
+
+
+        $valid = Validator::make($request->all(),[
+            "serv_estab"=> "required",
+            "serv_ppe"=> "required",
+            "serv_type"=> "required",
+        ]);
+
+        if($valid->fails()){
+            return redirect()->route($page)
+                             ->with([
+                                "message" => "Error, Try Again!",
+                                "alert-type" => "error"
+                             ]);
+        }
+
+        Serviceables::findorfail($serv_id)->update([
+            "serv_estab"=> $request->serv_estab,
+            "serv_ppe"=> $request->serv_ppe,
+            "serv_type"=> $request->serv_type,
+            "serv_prop"=> $request->serv_prop,
+            "serv_acctg"=> $request->serv_acctg,
+            "serv_pgso"=> $request->serv_pgso,
+            "serv_date"=> $request->serv_date,
+            "serv_unit"=> $request->serv_unit,
+            "serv_qty"=> $request->serv_qty,
+            "serv_value"=> $request->serv_value,
+            "serv_remarks"=> $request->serv_remarks,
+            "serv_desc"=> $request->serv_desc,
+        ]);
+
+        return redirect()->route($page)
+                         ->with([
+                            'message'=>"Item(s) Updated Successfully!",
+                            "alert-type"=> "success"
+                         ]);
+    }
 }

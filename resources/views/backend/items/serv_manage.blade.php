@@ -28,6 +28,9 @@
                                 <label class="mb-0">ICS</label>
                                 @endif
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <p>Old Property:</p>
+                                <label class="mb-0">{{ $itemData->serv_prop }}</label>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <p>Accounting Title Code (Acctg):</p>
                                 <label class="mb-0">{{ $itemData->serv_acctg }}</label>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
@@ -47,7 +50,8 @@
                                 <label class="mb-0">{{ number_format($itemData->serv_value,2) }}</label>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <p>Total Value:</p>
-                                <label class="mb-0">{{ number_format($itemData->serv_value,2) }}</label>
+                                <label
+                                    class="mb-0">{{ number_format($itemData->serv_value * $itemData->serv_qty, 2) }}</label>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <p>Remarks:</p>
                                 <label class="mb-0">{{ $itemData->serv_remarks }}</label>
@@ -62,159 +66,192 @@
                         <h3>Item Description</h3>
                     </div>
                     <div class="card-body">
-                        <textarea name="" id="" rows="20" class="form-control">{!!  $itemData->serv_desc !!}</textarea>
+                        <textarea name="" id="" rows="27" class="form-control"
+                            readonly>{!!  $itemData->serv_desc !!}</textarea>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row edit" style="display: none;">
-            <div class="col-lg-4">
-                <div class="card shadow mb-4 mb-lg-0">
-                    <div class="card-header">
-                        <button type="submit" class="btn btn-success btn-lg px-4 float-end" id="editBtn">
-                            View Item
-                        </button>
-                        <h3>Item EDIT</h3>
+        <form action="{{ route('serv.update') }}" method="post">
+            <input type="hidden" name="id" value="{{ $itemData->id }}">
+            <div class="row edit" style="display: none;">
+                @csrf
+                <div class="col-lg-4">
+                    <div class="card shadow mb-4 mb-lg-0">
+                        <div class="card-header">
+                            <button type="button" class="btn btn-success btn-lg px-4 float-end" id="editBtn">
+                                View Item
+                            </button>
+                            <h3>Item EDIT</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Establishment:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="serv_estab" id="" class="selecOpt">
+                                            <option value=""></option>
+                                            @foreach($estabs as $estab)
+                                            <option value="{{ $estab->id }}"
+                                                {{ $estab->id == $itemData->serv_estab ? 'selected' : '' }}>
+                                                {{ $estab->estab_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">PPE Account:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="serv_ppe" id="" class="selecOpt">
+                                            <option value=""></option>
+                                            @foreach($ppes as $ppe)
+                                            <option value="{{ $ppe->id }}"
+                                                {{ $ppe->id == $itemData->serv_ppe ? 'selected' : '' }}>
+                                                {{ $ppe->ppe_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Serviceable Type:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="serv_type" id="" class="selecOpt">
+                                            <option value="" disabled>Select option</option>
+                                            <option value="1" {{ $itemData->serv_type == 1 ? 'selected' : '' }}>RPCPPE
+                                            </option>
+                                            <option value="2" {{ $itemData->serv_type == 2 ? 'selected' : '' }}>ICS
+                                            </option>
+                                            <option value="3" {{ $itemData->serv_type == 3 ? 'selected' : '' }}>IIRUP
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Old Property:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="serv_prop" value="{{ $itemData->serv_prop }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Accounting Title Code (Acctg):</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="serv_acctg" value="{{ $itemData->serv_acctg }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">PGSO Number/Code (PGSO):</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="serv_pgso" value="{{ $itemData->serv_pgso }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Date Acquired:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="date" name="serv_date" value="{{ $itemData->serv_date }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Quantity Unit:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <select name="serv_unit" id="" class="selecOpt">
+                                            <option value=""></option>
+                                            @foreach($units as $unit)
+                                            <option value="{{ $unit->id }}"
+                                                {{ $unit->id == $itemData->serv_unit ? 'selected' : '' }}>
+                                                {{ $unit->unit_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Quantity:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="serv_qty" value="{{ $itemData->serv_qty }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Unit Value:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="serv_value" value="{{ $itemData->serv_value }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <p class="mb-0">Remarks:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="serv_remarks" value="{{ $itemData->serv_remarks }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success px-4 btn-lg float-end">
+                                Save Changes
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-body p-0">
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Establishment:</label>
-                                </div>
-                                <div class="col-6">
-                                    <select name="" id="" class="selecOpt">
-                                        <option value=""></option>
-                                        @foreach($estabs as $estab)
-                                        <option value="{{ $estab->id }}" {{ $estab->id === $estab->id ? $estab->id : '' }}>{{ $estab->estab_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">PPE Account:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->ppe }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Serviceable Type:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_type }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Old Property:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_prop }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Accounting Title Code (Acctg):</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_acctg }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">PGSO Number/Code (PGSO):</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_pgso }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Date Acquired:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="date" name="" value="{{ $itemData->serv_date }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Quantity Unit:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->unit }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Quantity:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_qty }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Unit Value:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_value }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <label class="mb-0">Remarks:</label>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="" value="{{ $itemData->serv_remarks }}" class="form-control">
-                                </div>
-                            </div>
-                        </li>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center my-3">
-                            <div>
-                                <button type="button" class="btn btn-success px-4 btn-lg">
-                                    Save Changes
-                                </button>
-                            </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h3>Item EDIT</h3>
+                        </div>
+                        <div class="card-body">
+                            <textarea name="serv_desc" rows="32" class="form-control"
+                                value="{{ $itemData->serv_desc }}">{!!  $itemData->serv_desc !!}</textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h3>Item EDIT</h3>
-                    </div>
-                    <div class="card-body">
-                        <textarea name="" id="" rows="23" class="form-control">{!!  $itemData->serv_desc !!}</textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </section>
 </div>
 
@@ -224,11 +261,11 @@ $(document).ready(function() {
         placeholder: "Select Option",
         width: "100%",
     });
-    $(document).on('click', '#viewBtn', function(){
+    $(document).on('click', '#viewBtn', function() {
         $(".view").hide();
         $(".edit").show();
     });
-    $(document).on('click', '#editBtn', function(){
+    $(document).on('click', '#editBtn', function() {
         $(".view").show();
         $(".edit").hide();
     });

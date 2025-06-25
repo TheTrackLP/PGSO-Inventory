@@ -71,19 +71,16 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                <a href="{{ route('serv.edit', $rpcppe->id) }}" class="btn btn-secondary">View/Edit</a>
+                                <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Action
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye"></i>
-                                            View</a></li>
                                     <li><a class="dropdown-item" href="{{ route('serv.edit', $rpcppe->id) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i>
-                                            Edit</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash-can"></i>
-                                            Delete</a></li>
-                                </ul>
+                                            View/Edit</a></li>
+                                </ul> -->
                             </div>
                         </td>
                     </tr>

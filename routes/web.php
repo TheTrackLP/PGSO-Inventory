@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/admin/serviceables/Add','AddServiceables')->name('serv.add');
         Route::post('/admin/serviceables/store','StoreServiceables')->name('serv.store');
         Route::get('/admin/serviceables/edit/{id}','ServiceableManage')->name('serv.edit');
+        Route::post('/admin/serviceables/update','ServiceableUpdate')->name('serv.update');
 
         Route::get('/admin/serviceables/RPCPPE', 'RPCPPEService')->name('serv.rpcppe');
         Route::get('/admin/serviceables/ICS', 'ICSService')->name('serv.ics');
