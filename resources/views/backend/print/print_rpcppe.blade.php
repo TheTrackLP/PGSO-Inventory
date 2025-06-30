@@ -8,45 +8,45 @@
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
 </head>
 <style>
-    @media print {
-        @page {
-            size: landscape;
-        }
-
-        .hideextra {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+@media print {
+    @page {
+        size: landscape;
     }
 
-    body {
-        font-family: "Times New Roman", Times, serif;
+    .hideextra {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+}
 
-    footer {
-        border: 3px solid black;
-        margin-top: -1.1rem;
-    }
+body {
+    font-family: "Times New Roman", Times, serif;
+}
 
-    .tab {
-        margin-left: 68%;
-    }
+footer {
+    border: 3px solid black;
+    margin-top: -1.1rem;
+}
 
-    .table-bordered {
-        border: 3px solid black !important;
-    }
+.tab {
+    margin-left: 68%;
+}
 
-    td,
-    p {
-        margin: -1px;
-    }
+.table-bordered {
+    border: 3px solid black !important;
+}
 
-    td.remarks-column p {
-        border-bottom: 1px solid black;
-        padding-bottom: 2px;
-        margin-bottom: 4px;
-    }
+td,
+p {
+    margin: -1px;
+}
+
+td.remarks-column p {
+    border-bottom: 1px solid black;
+    padding-bottom: 2px;
+    margin-bottom: 4px;
+}
 </style>
 
 <body>
