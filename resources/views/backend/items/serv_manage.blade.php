@@ -215,8 +215,8 @@
                                         <p class="mb-0">Unit Value:</p>
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" name="serv_value" value="{{ $itemData->serv_value }}"
-                                            class="form-control">
+                                        <input type="number" name="serv_value" step="any"
+                                            value="{{ $itemData->serv_value }}" class="form-control">
                                     </div>
                                 </div>
                             </li>

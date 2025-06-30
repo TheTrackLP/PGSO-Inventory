@@ -57,7 +57,7 @@
                             {{ explode("\n", $ics->serv_desc)[0] }}
                         </td>
                         <td class="text-center">
-                            {{ $ics->serv_acctg }}
+                            {{ $ics->serv_prop }}
                         </td>
                         <td class="text-center">
                             {{ $ics->serv_pgso }}
@@ -67,7 +67,7 @@
                             <p>PPE Account: <b>{{ $ics->ppe }}</b></p>
                         </td>
                         <td class="text-center">
-                            {{ number_format($ics->serv_value, 2) }}
+                            {{ number_format($ics->serv_value * $ics->serv_qty, 2) }}
                         </td>
                         <td class="text-center">
                             <div class="btn-group">

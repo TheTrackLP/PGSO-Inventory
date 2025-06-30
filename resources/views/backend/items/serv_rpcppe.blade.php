@@ -67,7 +67,7 @@
                             <p>PPE Account: <b>{{ $rpcppe->ppe }}</b></p>
                         </td>
                         <td class="text-center">
-                            {{ number_format($rpcppe->serv_value, 2) }}
+                            {{ number_format($rpcppe->serv_value * $rpcppe->serv_qty, 2) }}
                         </td>
                         <td class="text-center">
                             <div class="btn-group">

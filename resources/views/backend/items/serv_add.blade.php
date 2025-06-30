@@ -125,7 +125,7 @@
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>
-                                                <input type="text" name="inputs[1][serv_qty]" id="serv_qty"
+                                                <input type="number" name="inputs[1][serv_qty]" id="serv_qty"
                                                     class="form-control">
                                             </div>
                                             <div class="col">
@@ -226,7 +226,7 @@ $(document).ready(function() {
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>
-                                                <input type="text" name="inputs[${i}][serv_qty]" id="serv_qty"
+                                                <input type="number" name="inputs[${i}][serv_qty]" id="serv_qty"
                                                     class="form-control">
                                             </div>
                                             <div class="col">
