@@ -117,4 +117,10 @@ $(function() {
     });
 
 });
+
+$(".selectPrint").select2({
+    placeholder: "Select option",
+    width: "100%",
+    dropdownParent: $("#printSelect")
+})
 </script>
