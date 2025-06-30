@@ -96,6 +96,6 @@ class PrintController extends Controller
             ->where('serviceables.serv_type', 2)
             ->get();
 
-        return view('backend.print.print_rpcppe', compact('items_ics', 'establishment', 'ppe_acct', 'total'));
+        return view('backend.print.print_rpcppe', compact('s', 'establishment', 'ppe_acct', 'total'));
     }
 }
