@@ -54,6 +54,41 @@ class PrintController extends Controller
 
         return view('backend.print.print_rpcppe', compact('items_rpcppe', 'establishment', 'ppe_acct', 'total'));
     }
+    public function printTopRPCPPEServ(Request $request)
+    {
+        $establishment = $request->print_estab ? Establishment::findOrFail($request->print_estab) : null;
+
+        $top_rpcppe = DB::table("serviceables")
+                          ->select(
+                            'serviceables.serv_ppe',
+                            'serviceables.serv_estab',
+                            'establishments.estab_name',
+                            'ppe_accounts.ppe_name',
+                            'ppe_accounts.ppe_code',
+                            DB::raw("SUM(serviceables.serv_qty) as total_qty"),
+                            DB::raw("SUM(serviceables.serv_value) as total_value"),
+                            DB::raw('SUM(CASE WHEN serviceables.serv_qty = 0 THEN serviceables.serv_value ELSE serviceables.serv_value * serviceables.serv_qty END) as grand_total')
+                          )
+                          ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                          ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                          ->where([
+                            ['serviceables.serv_estab', '=', $request->print_estab],
+                            ['serviceables.serv_type','=', 1],
+                          ])
+                           ->groupBy('serviceables.serv_ppe', 'serviceables.serv_estab')
+                           ->orderBy('ppe_accounts.ppe_code', 'asc')
+                           ->get();
+
+        $overall_grand_total = 0;
+
+        foreach ($top_rpcppe as $value) {
+            if($value->total_qty == 0){
+                $value->grand_total = $value->total_value;
+            }
+            $overall_grand_total += $value->grand_total;
+        }
+        return view('backend.print.print_toprpcppe', compact('establishment', 'top_rpcppe', 'overall_grand_total'));
+    }
 
     public function printICSServ(Request $request)
     {
@@ -96,6 +131,68 @@ class PrintController extends Controller
             ->where('serviceables.serv_type', 2)
             ->get();
 
-        return view('backend.print.print_rpcppe', compact('s', 'establishment', 'ppe_acct', 'total'));
+        return view('backend.print.print_ics', compact('items_ics', 'establishment', 'ppe_acct', 'total'));
+    }
+
+        public function printTopICSServ(Request $request)
+    {
+        $establishment = $request->print_estab ? Establishment::findOrFail($request->print_estab) : null;
+
+        $top_ics = DB::table("serviceables")
+                          ->select(
+                            'serviceables.serv_ppe',
+                            'serviceables.serv_estab',
+                            'establishments.estab_name',
+                            'ppe_accounts.ppe_name',
+                            'ppe_accounts.ppe_code',
+                            DB::raw("SUM(serviceables.serv_qty) as total_qty"),
+                            DB::raw("SUM(serviceables.serv_value) as total_value"),
+                            DB::raw('SUM(CASE WHEN serviceables.serv_qty = 0 THEN serviceables.serv_value ELSE serviceables.serv_value * serviceables.serv_qty END) as grand_total')
+                          )
+                          ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                          ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                          ->where([
+                            ['serviceables.serv_estab', '=', $request->print_estab],
+                            ['serviceables.serv_type','=', 2],
+                          ])
+                           ->groupBy('serviceables.serv_ppe', 'serviceables.serv_estab')
+                           ->orderBy('ppe_accounts.ppe_code', 'asc')
+                           ->get();
+
+        $overall_grand_total = 0;
+
+        foreach ($top_ics as $value) {
+            if($value->total_qty == 0){
+                $value->grand_total = $value->total_value;
+            }
+            $overall_grand_total += $value->grand_total;
+        }
+        return view('backend.print.print_topics', compact('establishment', 'top_ics', 'overall_grand_total'));
+    }
+
+    public function printEachCodeServ(Request $request){
+        $ppe = $request->print_ppe ? ppe_account::findOrFail($request->print_ppe) : null;
+        $type = $request->print_type;
+
+        $eachcode = DB::table('serviceables')
+                       ->select(
+                        'serviceables.serv_type',
+                        'serviceables.serv_estab',
+                        'serviceables.serv_ppe',
+                        'establishments.estab_type',
+                            DB::raw("SUM(serviceables.serv_qty) as total_qty"),
+                            DB::raw("SUM(serviceables.serv_value) as total_value"),
+                            DB::raw("CONCAT(establishments.estab_name) as estab")
+                       )
+                       ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                       ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                       ->where([
+                        ['serviceables.serv_type','=', $request->print_type],
+                        ['serviceables.serv_ppe','=', $request->print_ppe],
+                       ])
+                       ->groupBy('establishments.id','ppe_accounts.id', 'serviceables.serv_type')
+                       ->get();
+
+        return view('backend.print.print_eachcode', compact('eachcode', 'ppe', 'type'));
     }
 }
