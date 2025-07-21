@@ -100,7 +100,7 @@
                                 <div class="d-grid gap-2">
                                     <button type="button" class="btn btn-outline-success" onclick="">Print
                                         Top</button>
-                                    <button type="button" class="btn btn-success" onclick="printRPCPPE()">Print
+                                    <button type="button" class="btn btn-success" onclick="">Print
                                         IIRUP</button>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                             <div class="card-body d-flex flex-column justify-content-between text-center">
                                 <div class="d-grid gap-2">
                                     <button type="button" class="btn btn-success"
-                                        onclick="printTopRPCPPE()">Print</button>
+                                        onclick="printPropertyCard()">Print</button>
                                 </div>
                             </div>
                         </div>

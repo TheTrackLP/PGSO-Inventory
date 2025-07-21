@@ -160,6 +160,21 @@ function printEachCode() {
     printNewWindow(url);
 }
 
+function printPropertyCard() {
+    const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    const selectedType = document.querySelector("select[name='print_type']").value;
+
+    if (!selectedEstab || !selectedPPE || !selectedType) {
+        toastr.error("Error, PPE Account, Establishment and Type Field is Empty");
+        return;
+    }
+
+    const url =
+        `{{ route('print.pcard') }}?print_ppe=${selectedPPE}&print_estab=${selectedEstab}&print_type=${selectedType}`;
+    printNewWindow(url);
+}
+
 
 function printNewWindow(url) {
     const printWindow = window.open(url, '_blank');
