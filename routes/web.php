@@ -30,6 +30,11 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(PrintController::class)->group(function () {
         Route::get('/admin/serviceable/RPCPPE/Print', 'printRPCPPEServ')->name('print.rpccpe');
+        Route::get('/admin/serviceable/Top-RPCPPE/Print', 'printTopRPCPPEServ')->name('print.toprpcppe');
+        Route::get('/admin/serviceable/ICS/Print', 'printICSServ')->name('print.ics');
+        Route::get('/admin/serviceable/Top-ICS/Print', 'printTopICSServ')->name('print.topics');
+        Route::get('/admin/serviceable/Each-Code/Print', 'printEachCodeServ')->name('print.eachcode');
+        Route::get('/admin/serviceable/Property-Card/Print', 'PrintPropertyCard')->name('print.pcard');
     });
 
     Route::controller(SettingsController::class)->group(function () {

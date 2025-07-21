@@ -1,18 +1,18 @@
 <style>
-    .card {
-        border-top: 4px solid green;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
+.card {
+    border-top: 4px solid green;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
 
-    .card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    }
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
 
-    .btn-success:hover {
-        transform: scale(1.03);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    }
+.btn-success:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
 </style>
 <div class="modal fade" id="printSelect" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -63,11 +63,12 @@
                     <div class="col-md-4">
                         <div class="card mb-3 h-100 d-flex flex-column">
                             <div class="card-header text-center">
-                                Print Service/Unservice
+                                Print RPCPPE
                             </div>
                             <div class="card-body d-flex flex-column justify-content-between text-center">
                                 <div class="d-grid gap-2">
-                                    <button type="button" class="btn btn-outline-success" onclick="PrintTopICS()">Print
+                                    <button type="button" class="btn btn-outline-success"
+                                        onclick="printTopRPCPPE()">Print
                                         Top</button>
                                     <button type="button" class="btn btn-success" onclick="printRPCPPE()">Print
                                         RPCPPE</button>
@@ -75,7 +76,64 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-md-4">
+                        <div class="card mb-3 h-100 d-flex flex-column">
+                            <div class="card-header text-center">
+                                Print ICS
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between text-center">
+                                <div class="d-grid gap-2">
+                                    <button type="button" class="btn btn-outline-success" onclick="printTopICS()">Print
+                                        Top</button>
+                                    <button type="button" class="btn btn-success" onclick="printICS()">Print
+                                        ICS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3 h-100 d-flex flex-column">
+                            <div class="card-header text-center">
+                                Print IIRUP
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between text-center">
+                                <div class="d-grid gap-2">
+                                    <button type="button" class="btn btn-outline-success" onclick="">Print
+                                        Top</button>
+                                    <button type="button" class="btn btn-success" onclick="">Print
+                                        IIRUP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-3 h-100 d-flex flex-column">
+                            <div class="card-header text-center">
+                                Print Property Card
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between text-center">
+                                <div class="d-grid gap-2">
+                                    <button type="button" class="btn btn-success"
+                                        onclick="printPropertyCard()">Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3 h-100 d-flex flex-column">
+                            <div class="card-header text-center">
+                                Print Each Code
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between text-center">
+                                <div class="d-grid gap-2">
+                                    <button type="button" class="btn btn-success"
+                                        onclick="printEachCode()">Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="card mb-3 h-100 d-flex flex-column">
                             <div class="card-header text-center">
@@ -83,22 +141,7 @@
                             </div>
                             <div class="card-body d-flex flex-column justify-content-between text-center">
                                 <div class="d-grid gap-2">
-                                    <button type="button" class="btn btn-success w-100" onclick="PrintICS()">Print
-                                        ICS</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card mb-3 h-100 d-flex flex-column">
-                            <div class="card-header text-center">
-                                Each Code
-                            </div>
-                            <div class="card-body d-flex flex-column justify-content-between text-center">
-                                <div class="d-grid gap-2">
-                                    <button type="button" class="btn btn-success w-100" onclick="PrintRPCPPE()">Print
-                                        RPCPPE</button>
+                                    <button type="button" class="btn btn-success" onclick="">Print</button>
                                 </div>
                             </div>
                         </div>

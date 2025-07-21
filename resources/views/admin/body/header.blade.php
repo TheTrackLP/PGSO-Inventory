@@ -26,15 +26,19 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <style>
-    label {
-        font-weight: bold;
-    }
+label {
+    font-weight: bold;
+}
 
-    td,
-    p {
-        margin: 0;
-    }
+td,
+p {
+    margin: 0;
+}
 </style>
+@php
+$estabs = App\Models\Establishment::all();
+$ppes = App\Models\ppe_account::all();
+@endphp
 
 <body class="sb-nav-fixed">
     @include('admin.body.navbar')
@@ -67,79 +71,151 @@
 
 </html>
 <script>
-    @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type','info') }}"
-    switch (type) {
-        case 'info':
-            toastr.info(" {{ Session::get('message') }} ");
-            break;
+@if(Session::has('message'))
+var type = "{{ Session::get('alert-type','info') }}"
+switch (type) {
+    case 'info':
+        toastr.info(" {{ Session::get('message') }} ");
+        break;
 
-        case 'success':
-            toastr.success(" {{ Session::get('message') }} ");
-            break;
+    case 'success':
+        toastr.success(" {{ Session::get('message') }} ");
+        break;
 
-        case 'warning':
-            toastr.warning(" {{ Session::get('message') }} ");
-            break;
+    case 'warning':
+        toastr.warning(" {{ Session::get('message') }} ");
+        break;
 
-        case 'error':
-            toastr.error(" {{ Session::get('message') }} ");
-            break;
+    case 'error':
+        toastr.error(" {{ Session::get('message') }} ");
+        break;
+}
+@endif
+
+function printRPCPPE() {
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+
+    if (!selectedEstab || !selectedPPE) {
+        toastr.error("Error, Establishment and PPE Account Field is empty");
+        return;
     }
-    @endif
+    const url = `{{ route('print.rpccpe') }}?print_estab=${selectedEstab}&print_ppe=${selectedPPE}`;
+    printNewWindow(url);
+}
 
-    function printRPCPPE() {
-        const selectedEstab = document.querySelector("select[name='print_estab']").value;
-        const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+function printTopRPCPPE() {
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    if (!selectedEstab) {
+        toastr.error("Error, Establishment Field is empty");
+        return;
+    }
+    const url = `{{ route('print.toprpcppe') }}?print_estab=${selectedEstab}`;
+    printNewWindow(url);
+}
 
-        if (!selectedEstab || !selectedPPE) {
-            toastr.error("Error, Establishment and PPE Account Field is empty");
-            return;
-        }
-        const url = `{{ route('print.rpccpe') }}?print_estab=${selectedEstab}&print_ppe=${selectedPPE}`;
-        printNewWindow(url);
+function printICS() {
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+
+    if (!selectedEstab || !selectedPPE) {
+        toastr.error("Error, Establishment and PPE Account Field is empty");
+        return;
+    }
+    const url = `{{ route('print.ics') }}?print_estab=${selectedEstab}&print_ppe=${selectedPPE}`;
+    printNewWindow(url);
+}
+
+function printTopICS() {
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    if (!selectedEstab) {
+        toastr.error("Error, Establishment Field is empty");
+        return;
+    }
+    const url = `{{ route('print.topics') }}?print_estab=${selectedEstab}`;
+    printNewWindow(url);
+}
+
+function printICS() {
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+
+    if (!selectedEstab || !selectedPPE) {
+        toastr.error("Error, Establishment and PPE Account Field is empty");
+        return;
+    }
+    const url = `{{ route('print.ics') }}?print_estab=${selectedEstab}&print_ppe=${selectedPPE}`;
+    printNewWindow(url);
+}
+
+function printEachCode() {
+    const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+    const selectedType = document.querySelector("select[name='print_type']").value;
+
+    if (!selectedPPE || !selectedType) {
+        toastr.error("Error, PPE Account and Type Field is empty");
+        return;
+    }
+    const url = `{{ route('print.eachcode') }}?print_ppe=${selectedPPE}&print_type=${selectedType}`;
+    printNewWindow(url);
+}
+
+function printPropertyCard() {
+    const selectedPPE = document.querySelector("select[name='print_ppe']").value;
+    const selectedEstab = document.querySelector("select[name='print_estab']").value;
+    const selectedType = document.querySelector("select[name='print_type']").value;
+
+    if (!selectedEstab || !selectedPPE || !selectedType) {
+        toastr.error("Error, PPE Account, Establishment and Type Field is Empty");
+        return;
     }
 
-    function printNewWindow(url) {
-        const printWindow = window.open(url, '_blank');
-        printWindow.addEventListener('load', function() {
-            printWindow.print();
-        }, true);
-    }
-
-    $(function() {
-        $(document).on('click', '#delete', function(e) {
-            e.preventDefault();
-            var link = $(this).attr("href");
+    const url =
+        `{{ route('print.pcard') }}?print_ppe=${selectedPPE}&print_estab=${selectedEstab}&print_type=${selectedType}`;
+    printNewWindow(url);
+}
 
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Delete This Data?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = link
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
+function printNewWindow(url) {
+    const printWindow = window.open(url, '_blank');
+    printWindow.addEventListener('load', function() {
+        printWindow.print();
+    }, true);
+}
+
+$(function() {
+    $(document).on('click', '#delete', function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
 
 
-        });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Delete This Data?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+
 
     });
 
-    $(".selectPrint").select2({
-        placeholder: "Select option",
-        width: "100%",
-        dropdownParent: $("#printSelect")
-    })
+});
+
+$(".selectPrint").select2({
+    placeholder: "Select option",
+    width: "100%",
+    dropdownParent: $("#printSelect")
+})
 </script>
