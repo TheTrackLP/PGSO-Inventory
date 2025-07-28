@@ -181,7 +181,7 @@ class PrintController extends Controller
                         'serviceables.serv_ppe',
                         'establishments.estab_type',
                             DB::raw("SUM(serviceables.serv_qty) as total_qty"),
-                            DB::raw("SUM(serviceables.serv_value) as total_value"),
+                            DB::raw("SUM(serviceables.serv_value * serv_qty) as total_value"),
                             DB::raw("CONCAT(establishments.estab_name) as estab")
                        )
                        ->join('establishments','establishments.id','=','serviceables.serv_estab')
@@ -237,5 +237,40 @@ class PrintController extends Controller
             ->get();
 
         return view('backend.print.print_propertyCard', compact('item_serv', 'total', 'ppe', 'estab'));
+    }
+
+    public function PrintConsolidated(Request $request) {
+        $type = $request->print_type;
+
+        $ppes = DB::table("serviceables")
+                    ->select(
+                        'ppe_accounts.*',
+                    )
+                    ->leftJoin("establishments", "establishments.id", "=", "serviceables.serv_ppe")
+                    ->leftJoin("ppe_accounts", "ppe_accounts.id", "=", "serviceables.serv_ppe")
+                    ->where('serviceables.serv_type', $request->print_type)
+                    ->groupBy("ppe_accounts.id")
+                    ->orderBy('ppe_accounts.ppe_code', 'asc')
+                    ->get();
+        $estabs = Establishment::where("estab_type", $request->print_estabtype)->get();
+        $item_serv = DB::table("serviceables")
+                        ->select(
+                            'serviceables.serv_ppe',
+                            'serviceables.serv_estab',
+                            'serviceables.serv_type',
+                            'establishments.estab_type',
+                            DB::raw("SUM(serviceables.serv_qty) as total_qty"), 
+                            DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe_code"), 
+                            DB::raw("SUM(serviceables.serv_value * serviceables.serv_qty) as grand_total"), 
+                        )
+                        ->join("establishments", "establishments.id", "=", "serviceables.serv_estab")
+                        ->join("ppe_accounts", "ppe_accounts.id", "=", "serviceables.serv_ppe")
+                        ->where([
+                            ['serviceables.serv_type', $request->print_type],
+                            ['establishments.estab_type', $request->print_estabtype],
+                            ])
+                        ->groupBy('establishments.id','ppe_accounts.id','serviceables.serv_type', 'establishments.estab_type')
+                        ->get();
+        return view('backend.print.print_consolidated', compact("item_serv", 'ppes', 'estabs', 'type'));
     }
 }

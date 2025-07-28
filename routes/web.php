@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/serviceable/Top-ICS/Print', 'printTopICSServ')->name('print.topics');
         Route::get('/admin/serviceable/Each-Code/Print', 'printEachCodeServ')->name('print.eachcode');
         Route::get('/admin/serviceable/Property-Card/Print', 'PrintPropertyCard')->name('print.pcard');
+        Route::get('/admin/serviceable/Print/Consolidated', 'PrintConsolidated')->name('print.conso');
     });
 
     Route::controller(SettingsController::class)->group(function () {

@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-lg-6 form-group mb-3">
                         <label for="">Offices/Hospitals:</label>
-                        <select name="print_type1" id="" class="selectPrint">
+                        <select name="print_estabtype" id="" class="selectPrint">
                             <option value="" selected disabled>Select Option</option>
                             <option value="1">Offices</option>
                             <option value="2">Hospitals</option>
@@ -141,7 +141,8 @@
                             </div>
                             <div class="card-body d-flex flex-column justify-content-between text-center">
                                 <div class="d-grid gap-2">
-                                    <button type="button" class="btn btn-success" onclick="">Print</button>
+                                    <button type="button" class="btn btn-success"
+                                        onclick="printConsolidated()">Print</button>
                                 </div>
                             </div>
                         </div>
