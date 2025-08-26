@@ -187,14 +187,8 @@
                                         <p class="mb-0">Quantity Unit:</p>
                                     </div>
                                     <div class="col-6">
-                                        <select name="serv_unit" id="" class="selecOpt">
-                                            <option value=""></option>
-                                            @foreach($units as $unit)
-                                            <option value="{{ $unit->id }}"
-                                                {{ $unit->id == $itemData->serv_unit ? 'selected' : '' }}>
-                                                {{ $unit->unit_name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="serv_unit" value="{{ $itemData->serv_unit }}"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </li>

@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(ServiceablesController::class)->group(function () {
         Route::get('/admin/serviceables/Add', 'AddServiceables')->name('serv.add');
+        Route::get('/admin/serviceables/edit2', 'EditServiceables')->name('serv.edit2');
         Route::post('/admin/serviceables/store', 'StoreServiceables')->name('serv.store');
         Route::get('/admin/serviceables/edit/{id}', 'ServiceableManage')->name('serv.edit');
         Route::post('/admin/serviceables/update', 'ServiceableUpdate')->name('serv.update');
@@ -50,13 +51,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/settings/PPE-Accounts/edit/{id}', 'EditPPEAccount');
         Route::post('/admin/settings/PPE-Accounts/update', 'UpdatePPEAccount')->name('ppe.update');
         Route::get('/admin/settings/PPE-Accounts/delete/{id}', 'DeletePPEAccount')->name('ppe.delete');
-
-
-        Route::get('/admin/settings/Unit Types', 'UnitTypes')->name('unit_type');
-        Route::post('/admin/settings/Unit Types/Add', 'AddUnitType')->name('unit.add');
-        Route::get('/admin/settings/Unit Types/edit/{id}', 'EditUnitType');
-        Route::post('/admin/settings/Unit Types/update', 'UpdateUnitType')->name('unit.update');
-        Route::get('/admin/settings/Unit Types/delete/{id}', 'DeleteUnitType')->name('unit.delete');
     });
 });
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('serv_acctg')->nullable();
             $table->string('serv_pgso')->nullable();
             $table->date('serv_date')->nullable();
-            $table->tinyInteger('serv_unit')->nullable();
+            $table->string('serv_unit')->nullable();
             $table->integer('serv_qty')->nullable();
             $table->float('serv_value')->nullable();
             $table->string('serv_remarks')->nullable();

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Serviceables;
 use App\Models\Establishment;
 use App\Models\ppe_account;
-use App\Models\unit_type;
 use DB;
 
 class PrintController extends Controller
@@ -22,11 +21,9 @@ class PrintController extends Controller
                 'ppe_accounts.ppe_name',
                 'ppe_accounts.ppe_code',
                 'establishments.estab_acronym',
-                'unit_types.unit_name as unit',
             )
             ->join('establishments', 'establishments.id', '=', 'serviceables.serv_estab')
             ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe')
-            ->join('unit_types', 'unit_types.id', '=', 'serviceables.serv_unit');
 
         if ($request->print_estab) {
             $query->where('serviceables.serv_estab', $request->print_estab);
@@ -101,11 +98,9 @@ class PrintController extends Controller
                 'ppe_accounts.ppe_name',
                 'ppe_accounts.ppe_code',
                 'establishments.estab_acronym',
-                'unit_types.unit_name as unit',
             )
             ->join('establishments', 'establishments.id', '=', 'serviceables.serv_estab')
             ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe')
-            ->join('unit_types', 'unit_types.id', '=', 'serviceables.serv_unit');
 
         if ($request->print_estab) {
             $query->where('serviceables.serv_estab', $request->print_estab);
@@ -206,11 +201,9 @@ class PrintController extends Controller
                 'ppe_accounts.ppe_name',
                 'ppe_accounts.ppe_code',
                 'establishments.estab_acronym',
-                'unit_types.unit_name as unit',
             )
             ->join('establishments', 'establishments.id', '=', 'serviceables.serv_estab')
             ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe')
-            ->join('unit_types', 'unit_types.id', '=', 'serviceables.serv_unit');
 
         if ($request->print_estab) {
             $query->where('serviceables.serv_estab', $request->print_estab);

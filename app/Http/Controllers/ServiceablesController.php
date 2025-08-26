@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ppe_account;
 use App\Models\Establishment;
-use App\Models\unit_type;
 use App\Models\pgso_numbers;
 use App\Models\Serviceables;
 use DB;
@@ -19,8 +18,25 @@ class ServiceablesController extends Controller
     {
         $estabs = Establishment::all();
         $ppes = ppe_account::all();
-        $units = unit_type::all();
-        return view("backend.items.serv_add", compact("estabs", "ppes","units"));
+        return view("backend.items.serv_add", compact("estabs", "ppes"));
+    }
+
+    public function EditServiceables(Request $request){
+        $typeEdit = $request->typeEdit;
+        $items_serv = Serviceables::select(
+                     "serviceables.*",
+                     DB::raw("CONCAT(establishments.estab_acronym) as estab"),
+                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
+                     )
+                     ->join('establishments','establishments.id','=','serviceables.serv_estab')
+                     ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                     ->where([
+                        ['serviceables.serv_estab', '=', $request->estabEdit],
+                        ['serviceables.serv_ppe', '=', $request->ppeEdit],
+                        ['serviceables.serv_type', '=', $request->typeEdit],
+                     ])->get();
+                     
+        return view("backend.items.serv_edit", compact('items_serv', 'typeEdit'));
     }
 
     public function StoreServiceables(Request $request)
@@ -181,19 +197,16 @@ class ServiceablesController extends Controller
                                         "serviceables.*",
                                         DB::raw("CONCAT(establishments.estab_name) as estab"),
                                         DB::raw("CONCAT(ppe_accounts.ppe_code, ' | ', ppe_accounts.ppe_name) as ppe"),
-                                        DB::raw("CONCAT(unit_types.unit_name) as unit"),
                                     )
                                     ->join('establishments','establishments.id','=','serviceables.serv_estab')
                                     ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
-                                    ->join('unit_types','unit_types.id','=','serviceables.serv_unit')
                                     ->where("serviceables.id", $id)
                                     ->first();
 
             $estabs = Establishment::all();
             $ppes = ppe_account::all();
-            $units = unit_type::all();
             
-            return view("backend.items.serv_manage", compact("itemData", "estabs", "ppes", "units"));
+            return view("backend.items.serv_manage", compact("itemData", "estabs", "ppes"));
     }
 
     public function ServiceableUpdate(Request $request){

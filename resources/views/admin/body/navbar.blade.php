@@ -13,6 +13,44 @@
             </div>
             <!-- Navbar-->
             <div class="navbar-nav d-grid gap-2 d-md-flex justify-content-md-end mx-3">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-secondary dropdown-toggle px-5" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-bs-auto-close="outside">
+                        Dropdown form
+                    </button>
+                    <form class="dropdown-menu p-2" action="{{ route('serv.edit2') }}">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Establishment</label>
+                            <select name="estabEdit" id="" class="selectEdit">
+                                <option value=""></option>
+                                @foreach ($estabs as $estab)
+                                <option value="{{ $estab->id }}">{{ $estab->estab_acronym }} | {{ $estab->estab_name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">PPE Account</label>
+                            <select name="ppeEdit" id="" class="selectEdit">
+                                <option value=""></option>
+                                @foreach ($ppes as $ppe)
+                                <option value="{{ $ppe->id }}">{{ $ppe->ppe_code }} | {{ $ppe->ppe_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">RPCPPE/ICS</label>
+                            <select name="typeEdit" id="" class="selectEdit">
+                                <option value=""></option>
+                                <option value="1">RPCPPE</option>
+                                <option value="2">ICS</option>
+                            </select>
+                        </div>
+                        <div class="button text-center">
+                            <button type="submit" class="btn btn-info px-5 text-white">Edit</button>
+                        </div>
+                    </form>
+                </div>
                 <a href="{{ route('serv.add') }}" class="btn btn-primary px-5">Add Serviceables</a>
                 <button type="button" class="btn btn-success px-5" data-bs-target="#printSelect"
                     data-bs-toggle="modal">Print

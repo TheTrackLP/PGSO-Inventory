@@ -116,12 +116,8 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Unit Type:</label>
-                                                <select name="inputs[1][serv_unit]" id="serv_unit" class="form-control">
-                                                    <option value="" disabled selected>Select option</option>
-                                                    @foreach($units as $unit)
-                                                    <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="number" name="inputs[1][serv_unit]" step="any"
+                                                    id="serv_unit" class="form-control">
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>
@@ -217,12 +213,8 @@ $(document).ready(function() {
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Unit Type:</label>
-                                                    <select name="inputs[${i}][serv_unit]" id="serv_unit" class="form-control">
-                                                    <option value="" disabled selected>Select option</option>
-                                                    @foreach($units as $unit)
-                                                    <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="number" name="inputs[${i}][serv_unit]" step="any"
+                                                    id="serv_unit" class="form-control">
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>

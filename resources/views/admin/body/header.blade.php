@@ -229,4 +229,8 @@ $(".selectPrint").select2({
     width: "100%",
     dropdownParent: $("#printSelect")
 })
+$(".selectEdit").select2({
+    placeholder: "Select option",
+    width: "100%",
+})
 </script>
