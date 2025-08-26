@@ -16,9 +16,9 @@
                 <div class="dropdown">
                     <button type="button" class="btn btn-secondary dropdown-toggle px-5" data-bs-toggle="dropdown"
                         aria-expanded="false" data-bs-auto-close="outside">
-                        Dropdown form
+                        Edit Serviceable(s)
                     </button>
-                    <form class="dropdown-menu p-2" action="{{ route('serv.edit2') }}">
+                    <form class="dropdown-menu p-2" action="{{ route('serv.edits') }}">
                         <div class="mb-3">
                             <label for="" class="form-label">Establishment</label>
                             <select name="estabEdit" id="" class="selectEdit">
@@ -47,7 +47,7 @@
                             </select>
                         </div>
                         <div class="button text-center">
-                            <button type="submit" class="btn btn-info px-5 text-white">Edit</button>
+                            <button type="submit" class="btn btn-primary px-5">Edit</button>
                         </div>
                     </form>
                 </div>

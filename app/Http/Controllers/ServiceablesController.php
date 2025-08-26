@@ -39,6 +39,33 @@ class ServiceablesController extends Controller
         return view("backend.items.serv_edit", compact('items_serv', 'typeEdit'));
     }
 
+    public function UpdateServiceables(Request $request){
+        foreach($request->inputs as $index => $value){
+            Serviceables::where('id', $index)->update([
+                "serv_remarks"=> $value["serv_remarks"],
+                "serv_desc"=> $value["serv_desc"],
+                "serv_date"=> $value["serv_date"],
+                "serv_prop"=> $value["serv_prop"],
+                "serv_acctg"=> $value["serv_acctg"],
+                "serv_pgso"=> $value["serv_pgso"],
+                "serv_unit"=> $value["serv_unit"],
+                "serv_qty"=> $value["serv_qty"],
+                "serv_value"=> $value["serv_value"],
+            ]);
+        }
+
+        if($request->typeEdit == 1){
+            $page = "serv.rpcppe";
+        }elseif($request->typeEdit == 2){
+            $page = "serv.ics";
+        }
+        
+        return redirect()->route($page)->with([
+            'message' => 'Item(s) Serviceable(s) Updated Successfully',
+            'alert-type' => 'success',
+        ]); 
+    }
+
     public function StoreServiceables(Request $request)
     {
         $valid = Validator::make($request->all(), [
