@@ -2,13 +2,15 @@
 @section('admin')
 
 <div class="container-fluid">
-    @if ($typeEdit == 1)
-    <h1 class="mt-4">Edit Serviceable(s) | RPCPPE</h1>
-    @elseif($typeEdit == 2)
-    <h1 class="mt-4">Edit Serviceable(s) | ICS</h1>
-    @endif
-    <hr>
-    <form action="{{ route('serv.store') }}" method="POST">
+    <form action="{{ route('serv.updates') }}" method="POST">
+        <button class="float-end btn btn-success btn-lg px-5 mx-4">Save Changes</button>
+        <input type="hidden" name="typeEdit" value="{{ $typeEdit }}">
+        @if ($typeEdit == 1)
+        <h1 class="mt-4">Edit Serviceable(s) | RPCPPE</h1>
+        @elseif($typeEdit == 2)
+        <h1 class="mt-4">Edit Serviceable(s) | ICS</h1>
+        @endif
+        <hr>
         @csrf
         @foreach ($items_serv as $serv)
         <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -32,19 +34,21 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-6 mb-3">
+                                                <input type="hidden" name="id" value="{{ $serv->id }}">
                                                 <label for="">Remarks:</label>
-                                                <input type="text" name="inputs[1][serv_remarks]" id="serv_remarks"
-                                                    class="form-control" value="{{ $serv->serv_remarks }}">
+                                                <input type="text" name="inputs[{{ $serv->id }}][serv_remarks]"
+                                                    id="serv_remarks" class="form-control"
+                                                    value="{{ $serv->serv_remarks }}">
                                             </div>
                                             <div class="col-6">
                                                 <label for="">Date Acquired:</label>
-                                                <input type="date" name="inputs[1][serv_date]" id="serv_date"
-                                                    class="form-control" value="{{ $serv->serv_date }}">
+                                                <input type="date" name="inputs[{{ $serv->id }}][serv_date]"
+                                                    id="serv_date" class="form-control" value="{{ $serv->serv_date }}">
                                             </div>
                                             <div class="col">
                                                 <label for="">Description</label>
-                                                <textarea name="inputs[1][serv_desc]" class="form-control" id=""
-                                                    cols="30" rows="10">{{ $serv->serv_desc }}</textarea>
+                                                <textarea name="inputs[{{ $serv->id }}][serv_desc]" class="form-control"
+                                                    id="" cols="30" rows="10">{{ $serv->serv_desc }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -59,18 +63,20 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Old Property No.:</label>
-                                                <input type="text" name="inputs[1][serv_prop]" id="serv_remarks"
-                                                    class="form-control" value="{{ $serv->serv_prop }}">
+                                                <input type="text" name="inputs[{{ $serv->id }}][serv_prop]"
+                                                    id="serv_remarks" class="form-control"
+                                                    value="{{ $serv->serv_prop }}">
                                             </div>
                                             <div class="col">
                                                 <label for="">Property PGSO:</label>
-                                                <input type="text" name="inputs[1][serv_acctg]" id="serv_remarks"
-                                                    class="form-control" value="{{ $serv->serv_pgso }}">
+                                                <input type="text" name="inputs[{{ $serv->id }}][serv_pgso]"
+                                                    id="serv_pgso" class="form-control" value="{{ $serv->serv_pgso }}">
                                             </div>
                                             <div class="col">
                                                 <label for="">Accounting Title Code:</label>
-                                                <input type="text" name="inputs[1][serv_acctg]" id="serv_remarks"
-                                                    class="form-control" value="{{ $serv->serv_acctg }}">
+                                                <input type="text" name="inputs[{{ $serv->id }}][serv_acctg]"
+                                                    id="serv_remarks" class="form-control"
+                                                    value="{{ $serv->serv_acctg }}">
                                             </div>
                                         </div>
                                     </div>
@@ -83,18 +89,18 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Unit Type:</label>
-                                                <input type="text" name="inputs[1][serv_unit]" id="serv_unit"
-                                                    class="form-control" value="{{ $serv->serv_unit }}">
+                                                <input type="text" name="inputs[{{ $serv->id }}][serv_unit]"
+                                                    id="serv_unit" class="form-control" value="{{ $serv->serv_unit }}">
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>
-                                                <input type="number" name="inputs[1][serv_qty]" id="serv_qty"
-                                                    class="form-control" value="{{ $serv->serv_qty }}">
+                                                <input type="number" name="inputs[{{ $serv->id }}][serv_qty]"
+                                                    id="serv_qty" class="form-control" value="{{ $serv->serv_qty }}">
                                             </div>
                                             <div class="col">
                                                 <label for="">Unit Value</label>
-                                                <input type="number" name="inputs[1][serv_value]" step="any"
-                                                    id="serv_value" class="form-control"
+                                                <input type="number" name="inputs[{{ $serv->id }}][serv_value]"
+                                                    step="any" id="serv_value" class="form-control"
                                                     value="{{ $serv->serv_value }}">
                                             </div>
                                         </div>
