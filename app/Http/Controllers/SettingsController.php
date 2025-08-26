@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Establishment;
 use App\Models\ppe_account;
-use App\Models\unit_type;
 use Validator;
 use Carbon\Carbon;
 
@@ -183,76 +182,6 @@ class SettingsController extends Controller
                             "message"=> "PPE Account Deleted!",
                             "alert-type"=> "warning",
                          ]);
-    }
-
-    public function UnitTypes(){
-        $types = unit_type::all();
-        return view("backend.settings.unit_types", compact("types"));
-    }
-
-    public function AddUnitType(Request $request)
-    {
-        $valid = Validator::make($request->all(), [
-            "unit_name"=> "required",
-        ]);
-
-        if($valid->fails()){
-            return redirect()->route('unit_type')
-                             ->with([
-                                'message'=> 'Error, Try Again!',
-                                'alert-type'=> 'error',
-                             ]);
-        }
-
-        unit_type::create([
-            'unit_name'=> $request->unit_name,
-        ]);
-
-        return redirect()->route('unit_type')
-                         ->with([
-                            'message'=> 'Unit Type Added!',
-                            'alert-type'=> 'success',
-                        ]);
-    }
-
-    public function EditUnitType($id){
-        $type_id = unit_type::findorfail($id);
-        return response()->json([
-            'type'=> $type_id,
-        ]);
-    }
-
-    public function UpdateUnitType(Request $request){
-        $type_id = $request->id;
-        $valid = Validator::make($request->all(), [
-            "unit_name"=> "required",
-        ]);
-
-        if($valid->fails()){
-            return redirect()->route('unit_type')
-                             ->with([
-                                'message'=> 'Error, Try Again!',
-                                'alert-type'=> 'error',
-                             ]);
-        }
-
-        unit_type::findOrFail($type_id)->update([
-            'unit_name'=> $request->unit_name,
-        ]);
-
-        return redirect()->route('unit_type')
-                         ->with([
-                            'message'=> 'Unit Type Added!',
-                            'alert-type'=> 'success',
-                        ]);
-    }
-
-    public function DeleteUnitType($id){
-        $type_id = unit_type::findorfail($id)->delete();
-        return redirect()->route('unit_type')->with([
-            'message'=> 'Unit Type Delete!',
-            'alert-type'=>'warning',
-        ]);
     }
 
 }

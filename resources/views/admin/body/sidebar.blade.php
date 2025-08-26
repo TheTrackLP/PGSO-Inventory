@@ -62,8 +62,6 @@ img {
                                 class="fa-solid fa-building"></i>&nbsp;Offices</a>
                         <a class="nav-link" href="{{ route('ppe_acct') }}"><i class="fa-solid fa-gears"></i>&nbsp;PPE
                             Account</a>
-                        <a class="nav-link" href="{{ route('unit_type') }}"><i
-                                class="fa-solid fa-boxes-stacked"></i>&nbsp;Unit Types</a>
                         <a class="nav-link" href="#"><i class="fa-solid fa-users"></i>&nbsp;User
                             Management</a>
                         <a class="nav-link" href="#"><i class="fa-solid fa-bars"></i>&nbsp;Class

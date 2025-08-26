@@ -175,6 +175,17 @@ function printPropertyCard() {
     printNewWindow(url);
 }
 
+function printConsolidated() {
+    const selectedType = document.querySelector("select[name='print_type']").value;
+    const selectedEstabType = document.querySelector("select[name='print_estabtype']").value;
+
+    if (!selectedType || !selectedEstabType) {
+        toastr.error("Error, PPE Account and Type Field is Empty");
+        return;
+    }
+    const url = `{{ route('print.conso') }}?print_type=${selectedType}&print_estabtype=${selectedEstabType}`;
+    printNewWindow(url);
+}
 
 function printNewWindow(url) {
     const printWindow = window.open(url, '_blank');
@@ -217,5 +228,9 @@ $(".selectPrint").select2({
     placeholder: "Select option",
     width: "100%",
     dropdownParent: $("#printSelect")
+})
+$(".selectEdit").select2({
+    placeholder: "Select option",
+    width: "100%",
 })
 </script>

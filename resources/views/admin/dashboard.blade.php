@@ -39,7 +39,8 @@ hr {
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pills-profile-uns" data-bs-toggle="pill" data-bs-target="#pills-uns"
-                type="button" role="tab" aria-controls="pills-uns" aria-selected="false"><strong>IIRUP</strong></button>
+                type="button" role="tab" aria-controls="pills-uns" aria-selected="false"><strong>Inventory and
+                    Inspection Report of Unserviceable Property</strong></button>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
