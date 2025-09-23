@@ -1,33 +1,40 @@
 $(document).ready(function () {
-    $("#servTable").DataTable({
+    $("#estabTable").DataTable({
+        ordering: false,
+        searching: true,
+    });
+    var icsTable = $("#icsTable").DataTable({
+        ordering: false,
+        searching: true,
+    });
+    var rpcppeTable = $("#rpcppeTable").DataTable({
         ordering: false,
         searching: true,
     });
 
-    var table = $("#servTable").DataTable();
-    var officeIndex = 3;
-    var ppeIndex = 3;
-
     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        if (settings.nTable.id !== "servTable") {
+        if (
+            settings.nTable.id !== "icsTable" &&
+            settings.nTable.id !== "rpcppeTable"
+        ) {
             return true;
         }
 
-        var selectedOffice = $("#ofc_hos").val();
-        var selectedPpe = $("#ppe_code").val();
-        var office = data[officeIndex];
-        var ppe = data[ppeIndex];
+        var selectedOffice = $(".selectEstab").val() || "";
+        var selectedPpe = $(".selectPPE").val() || "";
+        var ColEstabPPE = data[3] || "";
 
         if (
-            (selectedOffice === "" || office.includes(selectedOffice)) &&
-            (selectedPpe === "" || ppe.includes(selectedPpe))
+            (selectedOffice === "" || ColEstabPPE.includes(selectedOffice)) &&
+            (selectedPpe === "" || ColEstabPPE.includes(selectedPpe))
         ) {
             return true;
         }
         return false;
     });
 
-    $("#ofc_hos, #ppe_code").change(function () {
-        table.draw();
+    $(".selectEstab, .selectPPE").on("change", function () {
+        icsTable.draw();
+        rpcppeTable.draw();
     });
 });

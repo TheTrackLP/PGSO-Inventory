@@ -116,7 +116,7 @@ class SettingsController extends Controller
         ]);
 
         if($valid->fails()){
-            return redirect()->route('ppe_acct')
+            return redirect()->route('ppe.acct')
                              ->with([
                                 'message'=> 'Error, Try Again!',
                                 'alert-type'=> 'error',
@@ -129,7 +129,7 @@ class SettingsController extends Controller
             'ppe_name'=> $request->ppe_name,
         ]);
 
-        return redirect()->route('ppe_acct')
+        return redirect()->route('ppe.acct')
                          ->with([
                             'message'=> 'PPE Account Added!',
                             'alert-type'=> 'success',
@@ -154,7 +154,7 @@ class SettingsController extends Controller
         ]);
 
         if($valid->fails()){
-            return redirect()->route('ppe_acct')
+            return redirect()->route('ppe.acct')
                              ->with([
                                 'message'=> 'Error, Try Again!',
                                 'alert-type'=> 'error',
@@ -167,7 +167,7 @@ class SettingsController extends Controller
             'ppe_name'=> $request->ppe_name,
         ]);
 
-        return redirect()->route('ppe_acct')
+        return redirect()->route('ppe.acct')
                          ->with([
                             'message'=> 'PPE Account Updated!',
                             'alert-type'=> 'success',
@@ -177,7 +177,7 @@ class SettingsController extends Controller
     public function DeletePPEAccount($id)
     {
         ppe_account::findorfail($id)->delete();
-        return redirect()->route("ppe_acct")
+        return redirect()->route("ppe.acct")
                          ->with([
                             "message"=> "PPE Account Deleted!",
                             "alert-type"=> "warning",

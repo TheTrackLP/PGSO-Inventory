@@ -23,7 +23,7 @@ class PrintController extends Controller
                 'establishments.estab_acronym',
             )
             ->join('establishments', 'establishments.id', '=', 'serviceables.serv_estab')
-            ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe')
+            ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe');
 
         if ($request->print_estab) {
             $query->where('serviceables.serv_estab', $request->print_estab);
@@ -100,7 +100,7 @@ class PrintController extends Controller
                 'establishments.estab_acronym',
             )
             ->join('establishments', 'establishments.id', '=', 'serviceables.serv_estab')
-            ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe')
+            ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe');
 
         if ($request->print_estab) {
             $query->where('serviceables.serv_estab', $request->print_estab);
@@ -203,7 +203,7 @@ class PrintController extends Controller
                 'establishments.estab_acronym',
             )
             ->join('establishments', 'establishments.id', '=', 'serviceables.serv_estab')
-            ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe')
+            ->join('ppe_accounts', 'ppe_accounts.id', '=', 'serviceables.serv_ppe');
 
         if ($request->print_estab) {
             $query->where('serviceables.serv_estab', $request->print_estab);

@@ -1,19 +1,3 @@
-<style>
-.card {
-    border-top: 4px solid green;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
-.btn-success:hover {
-    transform: scale(1.03);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-</style>
 <div class="modal fade" id="printSelect" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content rounded-4 shadow">

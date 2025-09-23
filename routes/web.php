@@ -13,9 +13,9 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin/dashboard', 'AdminDashboard')->name('admin.dashboard');
+        Route::get('/admin/dashboard', 'AdminDashboard')->name('admins.dashboard');
 
-        Route::get('admin/logout', 'AdminLogout')->name('admin.logout');
+        Route::get('admin/logout', 'AdminLogout')->name('admins.logout');
     });
 
     Route::controller(ServiceablesController::class)->group(function () {
@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/settings/establishments/update', 'UpdateEstablishment')->name('estab.update');
         Route::get('/admin/settings/establishments/delete/{id}', 'DeleteEstablishment')->name('estab.delete');
 
-        Route::get('/admin/settings/PPE-Accounts', 'PPEAccount')->name('ppe_acct');
+        Route::get('/admin/settings/PPE-Accounts', 'PPEAccount')->name('ppe.acct');
         Route::post('/admin/settings/PPE-Accounts/Add', 'AddPPEAccount')->name('ppe.add');
         Route::get('/admin/settings/PPE-Accounts/edit/{id}', 'EditPPEAccount');
         Route::post('/admin/settings/PPE-Accounts/update', 'UpdatePPEAccount')->name('ppe.update');

@@ -190,15 +190,18 @@ class ServiceablesController extends Controller
     {
         $serv_rpcppe = Serviceables::select(
                      "serviceables.*",
-            DB::raw("CONCAT(establishments.estab_acronym) as estab"),
-                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
-            )
+                     DB::raw("CONCAT(establishments.estab_acronym) as estab"),
+                     DB::raw("CONCAT(establishments.id) as estab_id"),
+                     DB::raw("CONCAT(ppe_accounts.ppe_code, ' | ', ppe_accounts.ppe_name) as ppe"),
+                     DB::raw("CONCAT(ppe_accounts.id) as ppe_id"),            )
                                 ->join('establishments','establishments.id','=','serviceables.serv_estab')
                                 ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
                                 ->orderBy('serv_pgso','asc')
                                 ->where('serv_type' ,1)->get();
 
-        return view("backend.items.serv_rpcppe", compact("serv_rpcppe"));
+        $estabs = Establishment::all();
+        $ppes = ppe_account::all();
+        return view("backend.items.serv_rpcppe", compact("serv_rpcppe", "estabs", "ppes"));
     }
 
     
@@ -207,15 +210,20 @@ class ServiceablesController extends Controller
         
         $serv_ics = Serviceables::select(
                      "serviceables.*",
-            DB::raw("CONCAT(establishments.estab_acronym) as estab"),
-                     DB::raw("CONCAT(ppe_accounts.ppe_name) as ppe"),
+                     DB::raw("CONCAT(establishments.estab_acronym) as estab"),
+                     DB::raw("CONCAT(establishments.id) as estab_id"),
+                     DB::raw("CONCAT(ppe_accounts.ppe_code, ' | ', ppe_accounts.ppe_name) as ppe"),
+                     DB::raw("CONCAT(ppe_accounts.id) as ppe_id"),
             )
                                 ->join('establishments','establishments.id','=','serviceables.serv_estab')
                                 ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
                                 ->orderBy('serv_pgso','asc')
                                 ->where('serv_type', 2)->get();
 
-            return view("backend.items.serv_ics", compact("serv_ics"));
+        $estabs = Establishment::all();
+        $ppes = ppe_account::all();
+        
+        return view("backend.items.serv_ics", compact("serv_ics", "estabs", "ppes"));
         }
 
     public function ServiceableManage($id)

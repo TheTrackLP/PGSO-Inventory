@@ -126,9 +126,9 @@
                 <tr>
                     <td class="text-center">{{ $i++ }}</td>
                     <td class="text-center">{{ $ics->serv_qty }}</td>
-                    @if($ics->serv_qty < 1) <td class="text-center">{{ $ics->unit }}</td>
+                    @if($ics->serv_qty < 1) <td class="text-center">{{ $ics->serv_unit }}</td>
                         @else
-                        <td class="text-center">{{ $ics->unit }}s</td>
+                        <td class="text-center">{{ $ics->serv_unit }}s</td>
                         @endif
                         <td class="text-center">{{ !empty($ics->serv_value) ? number_format($ics->serv_value, 2) : "-"}}
                         </td>
