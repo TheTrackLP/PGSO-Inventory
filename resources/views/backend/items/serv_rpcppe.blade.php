@@ -18,18 +18,23 @@
                         <div class="row">
                             <div class="col-4">
                                 <label for="">Establishment</label>
-                                <select name="estab" id="estab" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                <select name="selectEstab" id="selectEstab" class="selectEdit selectEstab">
+                                    <option value=""></option>
+                                    @foreach ($estabs as $estab)
+                                    <option value="{{ $estab->estab_acronym }}">{{ $estab->estab_acronym }} |
+                                        {{ $estab->estab_name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-4">
                                 <label for="">PPE Account</label>
-                                <select name="estab" id="estab" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                <select name="selectPPE" id="selectPPE" class="selectEdit selectPPE">
+                                    <option value=""></option>
+                                    @foreach ($ppes as $ppe)
+                                    <option value="{{ $ppe->ppe_name }}">{{ $ppe->ppe_code }} | {{ $ppe->ppe_name }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -39,7 +44,7 @@
         </div>
         <hr>
         <div class="card-body">
-            <table class="table table-hovered table-bordered">
+            <table class="table table-hovered table-bordered" id="rpcppeTable">
                 <thead class="table-dark">
                     <tr>
                         <th class="text-center">Description</th>

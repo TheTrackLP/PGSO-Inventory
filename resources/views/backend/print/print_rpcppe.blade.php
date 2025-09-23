@@ -124,7 +124,7 @@ td.remarks-column p {
                             <td class="text-center">
                                 {{ !empty($rpcppe->serv_date) ? date('m/d/Y', strtotime($rpcppe->serv_date)) : null }}
                             </td>
-                            <td class="text-center">{{ $rpcppe->unit }}</td>
+                            <td class="text-center">{{ $rpcppe->serv_unit }}</td>
                             <td class="text-center">{{ $rpcppe->serv_qty }}</td>
                             <td class="text-center">
                                 {{ !empty($rpcppe->serv_value) ? number_format($rpcppe->serv_value, 2) : null }}

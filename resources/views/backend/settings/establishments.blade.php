@@ -56,7 +56,7 @@
                     <h3>Establishments</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hovered table-bordered">
+                    <table class="table table-hovered table-bordered" id="estabTable">
                         <thead class="table-dark">
                             <tr>
                                 <th class="text-center">#</th>
@@ -77,7 +77,7 @@
                                     <p>Position: <b>{{ $estab->estab_position }}</b></p>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <b>{{ $estab->estab_name }}</b>
+                                    <b>{{ $estab->estab_acronym }} | {{ $estab->estab_name }}</b>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group">
