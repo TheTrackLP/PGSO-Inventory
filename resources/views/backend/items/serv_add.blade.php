@@ -116,8 +116,8 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Unit Type:</label>
-                                                <input type="number" name="inputs[1][serv_unit]" step="any"
-                                                    id="serv_unit" class="form-control">
+                                                <input type="text" name="inputs[1][serv_unit]" id="serv_unit"
+                                                    class="form-control">
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>
@@ -213,8 +213,7 @@ $(document).ready(function() {
                                         <div class="row">
                                             <div class="col">
                                                 <label for="">Unit Type:</label>
-                                                <input type="number" name="inputs[${i}][serv_unit]" step="any"
-                                                    id="serv_unit" class="form-control">
+                                                <input type="text" name="inputs[${i}][serv_unit]" id="serv_unit" class="form-control">
                                             </div>
                                             <div class="col">
                                                 <label for="">Quantity:</label>

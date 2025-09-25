@@ -118,7 +118,7 @@ class PrintController extends Controller
             ->when($request->print_ppe, function ($query) use ($request) {
                 return $query->where("serv_ppe", $request->print_ppe);
             })
-            ->where('serviceables.serv_type', 1)
+            ->where('serviceables.serv_type', 2)
             ->first();
 
         $items_ics = $query->orderBy('serviceables.serv_pgso', 'asc')
