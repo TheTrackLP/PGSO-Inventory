@@ -113,7 +113,8 @@ img.profile-img {
                             href="{{ route('estab') }}"><i class="fa-solid fa-building"></i> Offices</a>
                         <a class="nav-link {{ request()->routeIs('ppe.acct') ? 'active' : '' }}"
                             href="{{ route('ppe.acct') }}"><i class="fa-solid fa-gears"></i> PPE Account</a>
-                        <a class="nav-link" href="#"><i class="fa-solid fa-users"></i> User Management</a>
+                        <a class="nav-link {{ request()->routeIs('users.manage') ? 'active' : '' }}"
+                            href="{{ route('users.manage') }}"><i class="fa-solid fa-users"></i> User Management</a>
                     </nav>
                 </div>
             </div>

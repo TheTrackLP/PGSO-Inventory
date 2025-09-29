@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ServiceablesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/settings/PPE-Accounts/edit/{id}', 'EditPPEAccount');
         Route::post('/admin/settings/PPE-Accounts/update', 'UpdatePPEAccount')->name('ppe.update');
         Route::get('/admin/settings/PPE-Accounts/delete/{id}', 'DeletePPEAccount')->name('ppe.delete');
+
+        Route::get('/admin/user-management', 'UserManagement')->name('users.manage');
     });
 });
 

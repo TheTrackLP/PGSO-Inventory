@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Establishment;
 use App\Models\ppe_account;
+use App\Models\User;
 use Validator;
 use Carbon\Carbon;
 
@@ -182,6 +183,12 @@ class SettingsController extends Controller
                             "message"=> "PPE Account Deleted!",
                             "alert-type"=> "warning",
                          ]);
+    }
+
+    public function UserManagement()
+    {
+        $users = User::all();
+        return view('backend.settings.users', compact('users'));
     }
 
 }
