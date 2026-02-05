@@ -30,6 +30,7 @@ class ServiceablesController extends Controller
                      )
                      ->join('establishments','establishments.id','=','serviceables.serv_estab')
                      ->join('ppe_accounts','ppe_accounts.id','=','serviceables.serv_ppe')
+                     ->orderBy('serviceables.serv_pgso', 'asc')
                      ->where([
                         ['serviceables.serv_estab', '=', $request->estabEdit],
                         ['serviceables.serv_ppe', '=', $request->ppeEdit],

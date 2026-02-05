@@ -19,7 +19,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapse{{ $serv->id }}" aria-expanded="false"
                         aria-controls="flush-collapseOne">
-                        <label for="">Property PGSO: {{ $serv->serv_pgso }}</label>
+                        <label for="">Property PGSO: {{ $serv->serv_pgso }} | Old Property:
+                            {{ $serv->serv_prop }}</label>
                     </button>
                 </h2>
                 <div id="flush-collapse{{ $serv->id }}" class="accordion-collapse collapse"

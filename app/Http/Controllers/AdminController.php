@@ -27,6 +27,7 @@ class AdminController extends Controller
                             ->join("establishments","establishments.id","=","serviceables.serv_estab")
                             ->join("ppe_accounts","ppe_accounts.id","=","serviceables.serv_ppe")
                             ->where("serviceables.serv_type", 1)
+                            ->orderBy("ppe_accounts.ppe_code", 'asc')
                             ->groupBy("establishments.id", "ppe_accounts.id", "serviceables.serv_type")
                             ->get();
 
@@ -43,6 +44,7 @@ class AdminController extends Controller
                             ->join("establishments","establishments.id","=","serviceables.serv_estab")
                             ->join("ppe_accounts","ppe_accounts.id","=","serviceables.serv_ppe")
                             ->where("serviceables.serv_type", 2)
+                            ->orderBy("ppe_accounts.ppe_code", 'asc')
                             ->groupBy("establishments.id", "ppe_accounts.id", "serviceables.serv_type")
                             ->get();
 

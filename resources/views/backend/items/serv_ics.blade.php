@@ -58,23 +58,23 @@
                 <tbody>
                     @foreach($serv_ics as $ics)
                     <tr>
-                        <td>
+                        <td class="align-middle">
                             {{ explode("\n", $ics->serv_desc)[0] }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             {{ $ics->serv_prop }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             {{ $ics->serv_pgso }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <p>Establishment: <b>{{ $ics->estab }}</b></p>
                             <p>PPE Account: <b>{{ $ics->ppe }}</b></p>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             {{ number_format($ics->serv_value * $ics->serv_qty, 2) }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             <div class="btn-group">
                                 <a href="{{ route('serv.edit', $ics->id) }}" class="btn btn-secondary">View/Edit</a>
                             </div>
