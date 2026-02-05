@@ -58,23 +58,23 @@
                 <tbody>
                     @foreach($serv_rpcppe as $rpcppe)
                     <tr>
-                        <td>
+                        <td class="align-middle">
                             {{ explode("\n", $rpcppe->serv_desc)[0] }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             {{ $rpcppe->serv_acctg }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             {{ $rpcppe->serv_pgso }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <p>Establishment: <b>{{ $rpcppe->estab }}</b></p>
                             <p>PPE Account: <b>{{ $rpcppe->ppe }}</b></p>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             {{ number_format($rpcppe->serv_value * $rpcppe->serv_qty, 2) }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             <div class="btn-group">
                                 <a href="{{ route('serv.edit', $rpcppe->id) }}" class="btn btn-secondary">View/Edit</a>
                                 <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"

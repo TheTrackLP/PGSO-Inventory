@@ -99,11 +99,11 @@
                         <p>{{ $item->serv_qty }}</p>
                     </td>
                     <td class="text-center">
-                        <p>{{ $item->unit }}</p>
+                        <p>{{ $item->serv_unit }}</p>
                     </td>
                     <td>&nbsp;</td>
                     <td class="text-center">
-                        <p>{{ $item->serv_qty }} {{ $item->unit }}</p>
+                        <p>{{ $item->serv_qty }} {{ $item->serv_unit }}</p>
                     </td>
                 </tr>
                 @endforeach
