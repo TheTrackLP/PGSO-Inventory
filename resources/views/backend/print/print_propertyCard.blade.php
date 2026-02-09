@@ -84,7 +84,11 @@
             <tbody>
                 @foreach ($item_serv as $item) <tr>
                     <td class="text-center">
+                        @if($item->serv_date == null)
+                        <p></p>
+                        @else
                         <p>{{ date("m/d/Y", strtotime($item->serv_date)) }}</p>
+                        @endif
                     </td>
                     <td class="text-center">
                         <p>{{ $item->serv_pgso }}</p>

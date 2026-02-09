@@ -50,7 +50,7 @@ hr {
                 @foreach ($ppes as $ppe)
                 <div class="col">
                     <div class="card shadow-sm">
-                        <div class="card-header">
+                        <div class="card-header text-center">
                             <h5 class="card-title bold">{{ $ppe->ppe_code }} | {{ $ppe->ppe_name }}</h5>
                         </div>
                         <div class="card-body">
@@ -76,7 +76,7 @@ hr {
                 @foreach ($estabs as $estab)
                 <div class="col">
                     <div class="card shadow-sm">
-                        <div class="card-header">
+                        <div class="card-header text-center">
                             <h5 class="card-title bold">{{ $estab->estab_acronym }} | {{ $estab->estab_name }}</h5>
                         </div>
                         <div class="card-body text-center">
@@ -130,8 +130,10 @@ hr {
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($items_rpcppe as $rpcppe)
-                        @if($ppe->id == $rpcppe->serv_ppe)
+                        @php
+                        $overall_rpcppe = $items_rpcppe->where('serv_ppe', $ppe->id)
+                        @endphp
+                        @foreach($overall_rpcppe as $rpcppe)
                         <tr>
                             <td>
                                 <b>{{ $rpcppe->estab }}</b>
@@ -143,9 +145,16 @@ hr {
                                 <b>{{ number_format( $rpcppe->grand_total, 2) }}</b>
                             </td>
                         </tr>
-                        @endif
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center"><b>Grand Total -------></b></td>
+                            <td class="text-center" colspan="2">
+                                <b>{{ number_format($overall_rpcppe->sum('grand_total'), 2) }}</b>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -170,8 +179,10 @@ hr {
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($items_ics as $ics)
-                        @if($ppe->id == $ics->serv_ppe)
+                        @php
+                        $overall_ics = $items_ics->where('serv_ppe', $ppe->id)
+                        @endphp
+                        @foreach($overall_ics as $ics)
                         <tr>
                             <td>
                                 <b>{{ $ics->estab }}</b>
@@ -183,9 +194,16 @@ hr {
                                 <b>{{ number_format( $ics->grand_total, 2) }}</b>
                             </td>
                         </tr>
-                        @endif
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center"><b>Grand Total -------></b></td>
+                            <td class="text-center" colspan="2">
+                                <b>{{ number_format($overall_ics->sum('grand_total'), 2) }}</b>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -215,8 +233,10 @@ hr {
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items_rpcppe as $rpcppe_estab)
-                        @if($estab->id == $rpcppe_estab->serv_estab)
+                        @php
+                        $filtered_rpcppe = $items_rpcppe->where('serv_estab', $estab->id);
+                        @endphp
+                        @foreach ($filtered_rpcppe as $rpcppe_estab)
                         <tr>
                             <td>
                                 <b>{{ $rpcppe_estab->ppe }}</b>
@@ -228,9 +248,16 @@ hr {
                                 <b>{{ number_format( $rpcppe_estab->grand_total, 2) }}</b>
                             </td>
                         </tr>
-                        @endif
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center"><b>Grand Total -------></b></td>
+                            <td class="text-center" colspan="2">
+                                <b>{{ number_format($filtered_rpcppe->sum('grand_total'), 2) }}</b>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <hr>
                 <h4 class="text-center">Inventory Custodian Slip (ICS)</h4>
@@ -243,8 +270,10 @@ hr {
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items_ics as $ics_estab)
-                        @if($estab->id == $ics_estab->serv_estab)
+                        @php
+                        $filtered_ics = $items_ics->where('serv_estab', $estab->id)
+                        @endphp
+                        @foreach ($filtered_ics as $ics_estab)
                         <tr>
                             <td>
                                 <b>{{ $ics_estab->ppe }}</b>
@@ -256,9 +285,16 @@ hr {
                                 <b>{{ number_format( $ics_estab->grand_total, 2) }}</b>
                             </td>
                         </tr>
-                        @endif
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center"><b>Grand Total -------></b></td>
+                            <td class="text-center" colspan="2">
+                                <b>{{ number_format($filtered_ics->sum('grand_total'), 2) }}</b>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

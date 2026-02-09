@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function AdminDashboard(){
         $estabs = Establishment::all();
-        $ppes = ppe_account::all();
+        $ppes = ppe_account::orderby('ppe_code', 'asc')->get();
 
         $items_rpcppe = DB::table("serviceables")
                             ->select(
