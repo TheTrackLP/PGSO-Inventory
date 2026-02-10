@@ -67,7 +67,7 @@ $i = 1;
                     @if ($data->estab_type == 1)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        <td class="text-start">{{ $data->estab }}</td>
+                        <td class="text-start"><b>{{ $data->estab }}</b></td>
                         <td class="text-center">{{ $data->total_qty }}</td>
                         <td class="text-end">{{ number_format($data->total_value,2 ) }}</td>
                     </tr>

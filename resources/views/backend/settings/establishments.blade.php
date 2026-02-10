@@ -1,6 +1,9 @@
 @extends('admin.body.header')
 @section('admin')
-
+@php
+$seq_estab = 1;
+$y = 1;
+@endphp
 <div class="container-fluid">
     <div class="row mt-3">
         <div class="col-4">
@@ -53,6 +56,8 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-header">
+                    <button type="button" class="btn btn-secondary float-end" data-bs-target="#estab_seq"
+                        data-bs-toggle="modal">Establishment Sequence</button>
                     <h3>Establishments</h3>
                 </div>
                 <div class="card-body">
@@ -105,6 +110,38 @@
     </div>
 </div>
 
+<div class="modal fade" id="estab_seq" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form action="{{ route('estab.seq') }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <h5 class="text-center p-3 mb-2 bg-dark text-white bold">ESTABLISHMENTS</h5>
+                        @foreach ($estabs as $estab)
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                            <div class="input-group">
+                                <input type="hidden" name="inputs[{{ $seq_estab++ }}][id]" value="{{ $estab->id }}">
+                                <input type="number" name="inputs[{{ $y++ }}][estab_sequence]"
+                                    value="{{ $estab->estab_sequence }}" class="form-control order_estab"
+                                    placeholder="Order" min="1">
+                                <span class="input-group-text"
+                                    title="{{ $estab->estab_name }}">{{ $estab->estab_acronym }}</span>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function() {
     $(document).on('click', '#estabID', function() {
@@ -125,6 +162,26 @@ $(document).ready(function() {
                 $("#estabFrom").attr("action", "{{ route('estab.update') }}");
             }
         })
+    });
+
+    $(".order_estab").on("keyup", function() {
+        let values = {};
+        let inputs = document.getElementsByClassName("order_estab");
+
+        for (let i = 0; i < inputs.length; i++) {
+            let value = inputs[i].value;
+            values[value] = (values[value] || 0) + 1;
+        }
+
+        for (let i = 0; i < inputs.length; i++) {
+            if (values[inputs[i].value] > 1) {
+                inputs[i].style.backgroundColor = "#FF7F7F";
+                $(':input[type="submit"]').prop('disabled', true);
+            } else {
+                inputs[i].style.backgroundColor = "";
+                $(':input[type="submit"]').prop('disabled', false);
+            }
+        }
     });
 });
 </script>

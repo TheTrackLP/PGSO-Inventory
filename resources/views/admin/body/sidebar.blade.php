@@ -110,7 +110,7 @@ img.profile-img {
                 <div class="collapse" id="collapseSettings" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link {{ request()->routeIs('estab') ? 'active' : '' }}"
-                            href="{{ route('estab') }}"><i class="fa-solid fa-building"></i> Offices</a>
+                            href="{{ route('estab') }}"><i class="fa-solid fa-building"></i> Establishments</a>
                         <a class="nav-link {{ request()->routeIs('ppe.acct') ? 'active' : '' }}"
                             href="{{ route('ppe.acct') }}"><i class="fa-solid fa-gears"></i> PPE Account</a>
                         <a class="nav-link {{ request()->routeIs('users.manage') ? 'active' : '' }}"

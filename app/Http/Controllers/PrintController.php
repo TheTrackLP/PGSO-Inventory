@@ -185,6 +185,7 @@ class PrintController extends Controller
                         ['serviceables.serv_type','=', $request->print_type],
                         ['serviceables.serv_ppe','=', $request->print_ppe],
                        ])
+                       ->orderBy('establishments.estab_sequence', 'asc')
                        ->groupBy('establishments.id','ppe_accounts.id', 'serviceables.serv_type')
                        ->get();
 
@@ -245,7 +246,8 @@ class PrintController extends Controller
                     ->groupBy("ppe_accounts.id")
                     ->orderBy('ppe_accounts.ppe_code', 'asc')
                     ->get();
-        $estabs = Establishment::where("estab_type", $request->print_estabtype)->get();
+        $estabs = Establishment::where("estab_type", $request->print_estabtype)
+                               ->orderby('estab_sequence', 'asc')->get();
         $item_serv = DB::table("serviceables")
                         ->select(
                             'serviceables.serv_ppe',
