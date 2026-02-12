@@ -11,8 +11,8 @@ use App\Models\ppe_account;
 class AdminController extends Controller
 {
     public function AdminDashboard(){
-        $estabs = Establishment::all();
-        $ppes = ppe_account::all();
+        $estabs = Establishment::orderBy('estab_sequence', 'asc')->get();
+        $ppes = ppe_account::orderby('ppe_code', 'asc')->get();
 
         $items_rpcppe = DB::table("serviceables")
                             ->select(

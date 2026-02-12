@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/settings/establishments/edit/{id}', 'EditEstablishment');
         Route::post('/admin/settings/establishments/update', 'UpdateEstablishment')->name('estab.update');
         Route::get('/admin/settings/establishments/delete/{id}', 'DeleteEstablishment')->name('estab.delete');
+        Route::post('/admin/settings/establishments/sequence', 'EstablishmentsSequence')->name('estab.seq');
 
         Route::get('/admin/settings/PPE-Accounts', 'PPEAccount')->name('ppe.acct');
         Route::post('/admin/settings/PPE-Accounts/Add', 'AddPPEAccount')->name('ppe.add');

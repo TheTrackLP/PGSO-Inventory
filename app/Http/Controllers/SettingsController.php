@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class SettingsController extends Controller
 {
     public function Establishment(){
-        $estabs = Establishment::all();
+        $estabs = Establishment::orderBy('estab_sequence', 'asc')->get();
         return view("backend.settings.establishments", compact("estabs"));
     }
 
@@ -101,6 +101,33 @@ class SettingsController extends Controller
                             "message"=> "Establishment Deleted!",
                             "alert-type"=> "warning",
                          ]);
+    }
+
+    public function EstablishmentsSequence(Request $request){
+        $valid = Validator::make($request->all(), [
+            "inputs.*.id" => 'required',
+            "inputs.*.estab_sequence" => 'required',
+        ]);
+
+        if($valid->fails()){
+            return redirect()->route('estab')
+                             ->with([
+                                "message"=> "Error!, Try Again.",
+                                "alert-type"=> "error",
+                             ]);
+        }
+
+        foreach ($request->inputs as $sequence) {
+            Establishment::where('id', $sequence['id'])->update([
+                'estab_sequence' => $sequence['estab_sequence'],
+            ]);
+        }
+
+                
+        return redirect()->route('estab')->with([
+            'message' => 'Establishments Sequence Updated successfully',
+            'alert-type' => 'success',
+        ]);
     }
 
     public function PPEAccount(){
